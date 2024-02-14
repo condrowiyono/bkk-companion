@@ -1,22 +1,14 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import History from '../screens/History';
 import Home from '../screens/Home';
+import Account from '../screens/Account';
 
 type TabBarIconType = {
   focused: boolean;
   color: string;
   size: number;
-};
-
-const AccountScreen = () => {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Settings Screen</Text>
-    </View>
-  );
 };
 
 const HomeIcon = (props: TabBarIconType) => (
@@ -61,7 +53,7 @@ const TabNavigator = () => {
 
       <Tab.Screen
         name="Account"
-        component={AccountScreen}
+        component={Account}
         options={{
           tabBarIcon: AccountIcon,
           headerTitle: 'Akun',

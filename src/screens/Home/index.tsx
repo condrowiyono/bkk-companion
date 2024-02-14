@@ -1,66 +1,63 @@
-import React, {useCallback, useMemo, useRef} from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
-import {
-  BottomSheetBackdrop,
-  BottomSheetModal,
-  BottomSheetModalProvider,
-} from '@gorhom/bottom-sheet';
+import React from 'react';
+import {FlatList} from 'react-native-gesture-handler';
+import Item from './components/Item';
+import {NavigationProp} from '../../navigations/types';
+import {useNavigation} from '@react-navigation/native';
 
-const App = () => {
-  // ref
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+export type HomeItem = {
+  id: number;
+  title: string;
+  subtitle: string;
+  count: number;
+  bgIcon: string;
+  screen?: string;
+  screenOptions: {tab: number};
+};
 
-  // variables
-  const snapPoints = useMemo(() => ['25%', '50%'], []);
+const list: HomeItem[] = [
+  {
+    id: 1,
+    title: 'Perlu Tindakan',
+    subtitle: 'Jumlah persetujuan yang diperlukan',
+    count: 89,
+    bgIcon: 'rocket-outline',
+    screen: 'History',
+    screenOptions: {
+      tab: 0,
+    },
+  },
+  {
+    id: 2,
+    title: 'Riwayat Persetujuan',
+    subtitle: 'Riwayat persetujuan yang sudah dilakukan',
+    count: 230,
+    bgIcon: 'receipt-outline',
+    screen: 'History',
+    screenOptions: {
+      tab: 1,
+    },
+  },
+];
 
-  // callbacks
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
-  }, []);
+const Home = () => {
+  const navigation = useNavigation<NavigationProp>();
 
-  // renders
+  const handleNavigate = (item: HomeItem) => {
+    navigation.navigate('TabNavigator', {
+      screen: item.screen,
+      screenOption: item.screenOptions,
+    });
+  };
+
   return (
-    <BottomSheetModalProvider>
-      <View style={styles.container}>
-        <Button
-          onPress={handlePresentModalPress}
-          title="Present Modal"
-          color="black"
-        />
-        <BottomSheetModal
-          ref={bottomSheetModalRef}
-          index={1}
-          snapPoints={snapPoints}
-          animateOnMount
-          backdropComponent={props => (
-            <BottomSheetBackdrop
-              style={{flex: 1, backgroundColor: 'black'}}
-              {...props}
-            />
-          )}
-          onChange={handleSheetChanges}>
-          <View style={styles.contentContainer}>
-            <Text>Awesome 🎉</Text>
-          </View>
-        </BottomSheetModal>
-      </View>
-    </BottomSheetModalProvider>
+    <FlatList
+      data={list}
+      keyExtractor={item => item.id.toString()}
+      renderItem={({item, index}) => (
+        <Item item={item} index={index} onPress={handleNavigate} />
+      )}
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    justifyContent: 'center',
-  },
-  contentContainer: {
-    flex: 1,
-    alignItems: 'center',
-  },
-});
-
-export default App;
+export default Home;
