@@ -12,6 +12,7 @@ import {
 } from '@gorhom/bottom-sheet';
 import {useBottomSheetBack} from './useBottomSheetBack';
 import Backdrop from './Backdrop';
+import {StyleSheet} from 'react-native';
 
 type CustomBottomSheetProps = {
   visible: boolean;
@@ -63,11 +64,17 @@ const BottomSheet = ({
       animateOnMount
       onChange={handleSheetChanges}
       backdropComponent={Backdrop}>
-      <BottomSheetScrollView style={{padding: 12}}>
+      <BottomSheetScrollView style={styles.bottomSheetView}>
         {children}
       </BottomSheetScrollView>
     </BottomSheetModal>
   );
 };
+
+const styles = StyleSheet.create({
+  bottomSheetView: {
+    padding: 12,
+  },
+});
 
 export default BottomSheet;

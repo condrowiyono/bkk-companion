@@ -33,7 +33,7 @@ const Account = () => {
 
   return (
     <View>
-      <Card style={{borderTopLeftRadius: 0, borderTopRightRadius: 0}}>
+      <Card borderRadius={0}>
         <Avatar
           backgroundColor={Colors.primary}
           labelColor={Colors.white}
