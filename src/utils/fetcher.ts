@@ -9,7 +9,7 @@ const constructUrl = (path: string) => {
   return url.toString();
 };
 
-export const fetcher = async <T extends Record<string, unknown>>(
+export const fetcher = async <T extends unknown>(
   url: string,
   options?: RequestInit,
 ) => {

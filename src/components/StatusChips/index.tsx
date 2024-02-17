@@ -11,23 +11,23 @@ const chipProps: Record<StatusChipsProps['type'], ChipProps> = {
       color: Colors.$textSuccess,
       fontWeight: 'bold',
     },
-    backgroundColor: Colors.bgSuccessLight,
+    backgroundColor: Colors.green80,
     containerStyle: {borderColor: Colors.$textSuccessLight},
   },
   warning: {
     labelStyle: {
-      color: Colors.$textWarning,
+      color: Colors.yellow10,
       fontWeight: 'bold',
     },
-    backgroundColor: Colors.bgWarningLight,
-    containerStyle: {borderColor: Colors.$textWarningLight},
+    backgroundColor: Colors.yellow80,
+    containerStyle: {borderColor: Colors.yellow10},
   },
   danger: {
     labelStyle: {
       color: Colors.$textDanger,
       fontWeight: 'bold',
     },
-    backgroundColor: Colors.bgDangerLight,
+    backgroundColor: Colors.red80,
     containerStyle: {borderColor: Colors.$textDangerLight},
   },
   primary: {
@@ -35,7 +35,7 @@ const chipProps: Record<StatusChipsProps['type'], ChipProps> = {
       color: Colors.$textPrimary,
       fontWeight: 'bold',
     },
-    backgroundColor: Colors.bgPrimaryLight,
+    backgroundColor: Colors.$bgPrimaryLight,
     containerStyle: {borderColor: Colors.$textPrimaryLight},
   },
 };

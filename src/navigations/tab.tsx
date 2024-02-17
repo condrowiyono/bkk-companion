@@ -1,9 +1,11 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import History from '../screens/History';
 import Home from '../screens/Home';
 import Account from '../screens/Account';
+import {Colors} from 'react-native-ui-lib';
 
 type TabBarIconType = {
   focused: boolean;
@@ -30,7 +32,9 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{headerShown: false}}
+      sceneContainerStyle={{backgroundColor: Colors.$backgroundDefault}}>
       <Tab.Screen
         name="Home"
         component={Home}

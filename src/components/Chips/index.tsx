@@ -28,11 +28,11 @@ const Chips = (props: ChipsProps) => {
             <Chip
               label={option.label}
               containerStyle={{
-                borderColor: selected ? Colors.primary : Colors.grey20,
+                borderColor: selected ? Colors.blue40 : Colors.grey20,
               }}
-              backgroundColor={selected ? Colors.bgPrimaryLight : Colors.grey70}
+              backgroundColor={selected ? Colors.blue70 : Colors.grey70}
               labelStyle={{
-                color: selected ? Colors.$textPrimary : Colors.black,
+                color: selected ? Colors.$textPrimary : Colors.$textDefault,
               }}
             />
           </PressableScale>

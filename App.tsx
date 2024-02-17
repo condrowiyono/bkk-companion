@@ -4,6 +4,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {focusManager} from '@tanstack/react-query';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import {NavigationContainer} from '@react-navigation/native';
 
 import ReactQueryProvider from './src/contexts/react-query';
 import StackNavigator from './src/navigations/stack';
@@ -36,7 +37,9 @@ function App() {
           <AuthProvider>
             <ToastProvider>
               <ReactQueryProvider>
-                <StackNavigator />
+                <NavigationContainer>
+                  <StackNavigator />
+                </NavigationContainer>
               </ReactQueryProvider>
             </ToastProvider>
           </AuthProvider>
