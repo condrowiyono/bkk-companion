@@ -5,7 +5,6 @@ export const formatCurrency = (value: number | string | undefined | null) => {
     return '';
   }
 
-  // try to parse the value to number
   const parsed = Number(value);
 
   if (isNaN(parsed)) {

@@ -28,11 +28,8 @@ const History = () => {
       ),
   });
 
-  //
-
   const handleNavigate = (item: Task) => {
     navigation.navigate('TaskDetail', {taskId: item.kode_prod});
-    console.log('navigate to detail', item);
   };
 
   return (

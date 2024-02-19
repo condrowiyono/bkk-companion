@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
 import Icon from 'react-native-vector-icons/Ionicons';
+import {Colors} from 'react-native-ui-lib';
+
 import History from '../screens/History';
 import Home from '../screens/Home';
 import Account from '../screens/Account';
-import {Colors} from 'react-native-ui-lib';
 
 type TabBarIconType = {
   focused: boolean;
@@ -27,6 +27,25 @@ const HistoryIcon = (props: TabBarIconType) => (
     {...props}
   />
 );
+
+const tabMapping = {
+  Home: 'Beranda',
+  History: 'Riwayat',
+  Account: 'Akun',
+};
+
+const getScreenTitle = (routeName: string) => {
+  switch (routeName) {
+    case 'Home':
+      return tabMapping.Home;
+    case 'History':
+      return tabMapping.History;
+    case 'Account':
+      return tabMapping.Account;
+    default:
+      return tabMapping.Home;
+  }
+};
 
 const Tab = createBottomTabNavigator();
 
@@ -68,4 +87,5 @@ const TabNavigator = () => {
   );
 };
 
+export {getScreenTitle};
 export default TabNavigator;
