@@ -1,13 +1,13 @@
 import {User} from './user';
 
 export type LoginPayload = {
-  email: string;
+  employe_id: string;
   password: string;
 };
 
 export type LoginResponse = {
-  data: {
-    user: User;
-    token: string;
-  };
+  message: string;
+  token?: string;
+  refresh_token?: string;
+  user?: User | null;
 };

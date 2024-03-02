@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {StyleSheet} from 'react-native';
-import {View, Text, Card, Colors} from 'react-native-ui-lib';
 
+import {View, Text, Card, Colors} from 'react-native-ui-lib';
 import {PressableScale} from '../../../components/PressableScale';
 import {Project} from '../../../interfaces/project';
 import {formatDate} from '../../../utils/date';

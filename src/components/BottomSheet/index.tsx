@@ -36,7 +36,6 @@ const BottomSheet = ({
   const handleSheetChanges = useCallback(
     (index: number) => {
       if (index === -1) {
-        console.log('handleSheetChanges', index);
         setBottomSheetOpen(false);
         onClose();
       }

@@ -1,17 +1,61 @@
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import {
+  getFocusedRouteNameFromRoute,
+  useNavigation,
+} from '@react-navigation/native';
+import {HeaderButtonProps} from '@react-navigation/native-stack/lib/typescript/src/types';
 import {Colors} from 'react-native-ui-lib';
+import Icon from 'react-native-vector-icons/Ionicons';
 
+import {PressableScale} from '../components/PressableScale';
 import {useAuth} from '../contexts/auth';
 import Login from '../screens/Login';
-import TabNavigator, {getScreenTitle} from './tab';
 import SplashScreen from '../screens/SplashScreen';
 import Onboarding from '../screens/Onboarding';
 import TaskDetail from '../screens/TaskDetail';
-import {StackList} from './types';
+import Search from '../screens/Search';
+import Profile from '../screens/Profile';
+
+import TabNavigator from './tab';
+import {NavigationProp, StackList} from './types';
 
 const Stack = createNativeStackNavigator<StackList>();
+
+const SearchIcon = (props: HeaderButtonProps) => {
+  const navigation = useNavigation<NavigationProp>();
+
+  return (
+    <PressableScale onPress={() => navigation.navigate('Search')}>
+      <Icon name="search" size={24} {...props} />
+    </PressableScale>
+  );
+};
+
+const renderSearch = (routeName: string, props: HeaderButtonProps) => {
+  switch (routeName) {
+    case 'History':
+    case 'Project':
+      return <SearchIcon {...props} />;
+    default:
+      return null;
+  }
+};
+
+const renderScreenTitle = (routeName: string) => {
+  switch (routeName) {
+    case 'Home':
+      return 'Beranda';
+    case 'Project':
+      return 'Proyek';
+    case 'History':
+      return 'Riwayat';
+    case 'Account':
+      return 'Akun';
+    default:
+      return 'Beranda';
+  }
+};
 
 const StackNavigator = () => {
   const {isLoading, isAuthentiacated} = useAuth();
@@ -31,7 +75,12 @@ const StackNavigator = () => {
             name="TabNavigator"
             component={TabNavigator}
             options={({route}) => ({
-              headerTitle: getScreenTitle(
+              headerRight: props =>
+                renderSearch(
+                  getFocusedRouteNameFromRoute(route) ?? 'Home',
+                  props,
+                ),
+              headerTitle: renderScreenTitle(
                 getFocusedRouteNameFromRoute(route) ?? 'Home',
               ),
             })}
@@ -40,6 +89,16 @@ const StackNavigator = () => {
             name="TaskDetail"
             component={TaskDetail}
             options={{title: 'Rincian'}}
+          />
+          <Stack.Screen
+            name="Search"
+            component={Search}
+            options={{title: 'Pencarian'}}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{title: 'Profil'}}
           />
         </>
       ) : (

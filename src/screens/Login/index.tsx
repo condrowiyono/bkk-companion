@@ -9,23 +9,20 @@ import {LoginPayload, LoginResponse} from '../../interfaces/login';
 const Login = () => {
   const {login, user} = useAuth();
   const {show} = useToast();
-  const [payload, setPayload] = useState({email: '', password: ''});
-  const [valid, setValid] = useState({email: false, password: false});
-  const isValid = valid.email && valid.password;
+  const [payload, setPayload] = useState({employe_id: '', password: ''});
+  const [valid, setValid] = useState({employe_id: false, password: false});
+  const isValid = valid.employe_id && valid.password;
 
   const {mutate, status} = useMutation<LoginResponse, any, LoginPayload>({
-    mutationFn: (data: LoginPayload) =>
-      fetcher('/login', {method: 'POST', body: JSON.stringify(data)}),
+    mutationFn: data => fetcher({url: '/login', method: 'POST', data}),
     onSuccess: data => {
-      login({
-        name: data.data.user.name,
-        email: data.data.user.email,
-        token: data.data.token,
-      });
-      show('Login success', {preset: 'success'});
+      if (data.token) {
+        login(data.token);
+        show('Login success', {preset: 'success'});
+      }
     },
     onError: error => {
-      show(`Login failed: ${error.message}`, {preset: 'failure'});
+      show(`Login gagal: ${error.message}`, {preset: 'failure'});
     },
   });
 
@@ -33,16 +30,16 @@ const Login = () => {
     <View padding-12>
       <Card>
         <TextField
-          placeholder="Email"
+          placeholder="NIK"
           floatingPlaceholder
           enableErrors
           validateOnBlur
-          validate={['required', 'email']}
-          validationMessage={['Field is required', 'Email is invalid']}
-          value={payload.email}
+          validate={['required']}
+          validationMessage={['Tidak boleh kosong']}
+          value={payload.employe_id}
           validateOnChange
-          onChangeText={email => setPayload({...payload, email})}
-          onChangeValidity={email => setValid({...valid, email})}
+          onChangeText={employe_id => setPayload({...payload, employe_id})}
+          onChangeValidity={employe_id => setValid({...valid, employe_id})}
         />
         <TextField
           placeholder="Password"
@@ -50,8 +47,8 @@ const Login = () => {
           floatingPlaceholder
           enableErrors
           validateOnBlur
-          validate={['required', (value: string) => value.length > 6]}
-          validationMessage={['Field is required', 'Password is too short']}
+          validate={['required', (value: string) => value.length > 5]}
+          validationMessage={['Tidak boleh kosong', 'Minimal 6 karakter']}
           validateOnChange
           value={payload.password}
           onChangeText={password => setPayload({...payload, password})}

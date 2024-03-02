@@ -1,11 +1,11 @@
 import React from 'react';
 import {View} from 'react-native-ui-lib';
 import Descriptions from '../../../components/Descriptions';
-import type {Task} from '../../../interfaces/task';
+import type {Project} from '../../../interfaces/project';
 import {formatCurrency} from '../../../utils/currency';
 
 type BudgetProps = {
-  route: {data?: Task};
+  route: {data?: Project};
 };
 
 const Budget = (props: BudgetProps) => {

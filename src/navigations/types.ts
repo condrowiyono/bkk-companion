@@ -7,6 +7,8 @@ export type StackList = {
   Onboarding: undefined;
   TabNavigator: {screen?: string; screenOption?: {tab: number}} | undefined;
   TaskDetail: {taskId: string};
+  Search: undefined;
+  Profile: undefined;
 };
 
 export type StackNavScreen = Omit<StackList, 'TabNavigator'>;

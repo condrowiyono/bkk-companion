@@ -26,7 +26,7 @@ export const ToastProvider = ({children}: {children: ReactNode}) => {
     setVisible(true);
     setConfig({
       message: msg,
-      position: 'bottom',
+      position: 'top',
       autoDismiss: dismiss,
       ...cfg,
     });

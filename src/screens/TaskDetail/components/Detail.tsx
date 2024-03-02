@@ -1,11 +1,12 @@
 import React from 'react';
-import {View} from 'react-native-ui-lib';
-import type {Task} from '../../../interfaces/task';
-import Descriptions from '../../../components/Descriptions';
 import dayjs from 'dayjs';
+import {View} from 'react-native-ui-lib';
+
+import Descriptions from '../../../components/Descriptions';
+import type {Project} from '../../../interfaces/project';
 
 type DetailProps = {
-  route: {data?: Task};
+  route: {data?: Project};
 };
 
 const Detail = (props: DetailProps) => {

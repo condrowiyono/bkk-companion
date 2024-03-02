@@ -1,21 +1,54 @@
-const BASE_URL = 'https://mataair-api.orbitallabs.net';
+import axios, {AxiosError, AxiosRequestConfig} from 'axios';
+import {getItem} from './session';
 
-const constructUrl = (path: string) => {
-  if (path.startsWith('http')) {
-    return path;
+const BASE_URL = 'https://bkk-api.orbitallabs.net';
+
+export interface Response<T = any> {
+  data?: T;
+  errors?: string[];
+  message: string;
+}
+
+export const instance = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+instance.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    return Promise.reject(error);
+  },
+);
+
+export async function fetcher<TResponse = any, TError = any, TData = any>(
+  requestConfig: AxiosRequestConfig<TData>,
+) {
+  try {
+    instance.interceptors.request.use(
+      async function (config) {
+        const headers = config.headers;
+
+        const token = await getItem('token');
+        if (token && headers) {
+          headers.set('Authorization', `Bearer ${token}`);
+        }
+
+        headers.set('Content-Type', 'application/json');
+        return config;
+      },
+      function (error) {
+        // Do something with request error
+        return Promise.reject(error);
+      },
+    );
+    const {data} = await instance.request<Response<TResponse>>(requestConfig);
+    return data;
+  } catch (error) {
+    throw (error as AxiosError<TResponse, TData>).response?.data as TError;
   }
-
-  const url = new URL(path, BASE_URL);
-  return url.toString();
-};
-
-export const fetcher = async <T extends unknown>(
-  url: string,
-  options?: RequestInit,
-) => {
-  const res = await fetch(constructUrl(url), options);
-  if (!res.ok) {
-    throw new Error('Terjadi kesalahan');
-  }
-  return res.json() as Promise<T>;
-};
+}

@@ -1,4 +1,9 @@
 export type User = {
-  name: string;
-  email: string;
+  idUser?: string;
+  NIK?: string;
+  Nama?: string;
+  Divisi?: string;
+  kdJabatan?: string;
+  email?: string;
+  notelp?: string;
 };

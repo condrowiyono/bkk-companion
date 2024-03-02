@@ -1,9 +1,4 @@
-import {
-  Colors,
-  Typography,
-  ThemeManager,
-  ButtonProps,
-} from 'react-native-ui-lib';
+import {Colors, Typography, ThemeManager} from 'react-native-ui-lib';
 
 export const configureDesignSystem = (): void => {
   Colors.loadColors({
@@ -40,11 +35,4 @@ export const configureDesignSystem = (): void => {
       borderColor: Colors.grey40,
     },
   });
-
-  /** Same as setComponentTheme, but can't be overridden by props passed to the component. */
-  ThemeManager.setComponentForcedTheme('Button', (props: ButtonProps) => ({
-    borderRadius: 12,
-    backgroundColor: Colors.primary,
-    labelStyle: [{fontWeight: 'bold'}, props.labelStyle],
-  }));
 };

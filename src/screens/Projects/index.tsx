@@ -6,22 +6,21 @@ import {useQuery} from '@tanstack/react-query';
 import Empty from '../../components/Empty';
 import ListHeader from '../../components/ListHeader';
 import ListFooter from '../../components/ListFooter';
-
 import {Project} from '../../interfaces/project';
 import {NavigationProp} from '../../navigations/types';
-import {fetcher} from '../../utils/fetcher';
 import {formatDate} from '../../utils/date';
+import {fetcher} from '../../utils/fetcher';
 
 import Item from './components/Item';
 
-const History = () => {
+const Projects = () => {
   const navigation = useNavigation<NavigationProp>();
   const scrollRef = useRef<FlatList<Project> | null>(null);
   useScrollToTop(scrollRef);
 
   const {data, isFetching, dataUpdatedAt, refetch, isSuccess} = useQuery({
-    queryKey: ['histories'],
-    queryFn: () => fetcher<Project[]>({url: '/protected/projects-history'}),
+    queryKey: ['projects'],
+    queryFn: () => fetcher<Project[]>({url: '/protected/projects'}),
   });
 
   const handleNavigate = (item: Project) => {
@@ -33,7 +32,6 @@ const History = () => {
       ref={scrollRef}
       data={data?.data}
       keyExtractor={item => item.kode_prod}
-      contentInsetAdjustmentBehavior="automatic"
       ListEmptyComponent={!isFetching ? <Empty /> : null}
       ListHeaderComponent={<ListHeader show={isFetching} />}
       ListFooterComponent={
@@ -42,14 +40,14 @@ const History = () => {
           show={isSuccess}
         />
       }
-      renderItem={({item, index}) => (
-        <Item item={item} index={index} onPress={handleNavigate} />
-      )}
       refreshControl={
         <RefreshControl refreshing={isFetching} onRefresh={refetch} />
       }
+      renderItem={({item, index}) => (
+        <Item item={item} index={index} onPress={handleNavigate} />
+      )}
     />
   );
 };
 
-export default History;
+export default Projects;

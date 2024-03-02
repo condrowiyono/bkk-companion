@@ -8,27 +8,28 @@ import React, {
 import {User} from '../interfaces/user';
 import {getItem, setItem, removeItem} from '../utils/session';
 
-type UserAuthPayload = User & {
-  token: string;
-};
+type UserAuthPayload = User;
 
 type AuthContextType = {
   user: UserAuthPayload;
+  token: string;
   isAuthentiacated: boolean;
   isLoading: boolean;
-  login: (user: UserAuthPayload) => void;
+  login: (token: string) => void;
+  updateProfile: (user: UserAuthPayload) => void;
   logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextType>({
   user: {
-    name: '',
+    idUser: '',
     email: '',
-    token: '',
   },
+  token: '',
   isLoading: true,
   isAuthentiacated: false,
   login: () => {},
+  updateProfile: () => {},
   logout: () => {},
 });
 
@@ -37,31 +38,37 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({children}: {children: ReactNode}) => {
-  const [user, setUser] = useState<UserAuthPayload>({
-    name: '',
-    email: '',
-    token: '',
-  });
+  const [user, setUser] = useState<UserAuthPayload>({idUser: '', email: ''});
+  const [token, setToken] = useState('');
   const [isLoading, setLoading] = useState(true);
-  const isAuthentiacated = user.token !== '';
 
-  const login = (payload: UserAuthPayload) => {
-    setUser(payload);
-    setItem('user', payload);
+  const isAuthentiacated = token !== '';
+
+  const login = (tokenPayload: string) => {
+    setToken(tokenPayload);
+    setItem('token', tokenPayload);
   };
 
   const logout = () => {
-    setUser({name: '', email: '', token: ''});
+    setUser({email: '', idUser: ''});
+    setToken('');
+
+    removeItem('token');
     removeItem('user');
+  };
+
+  const updateProfile = (userPayload: UserAuthPayload) => {
+    setUser(userPayload);
+    setItem('user', userPayload);
   };
 
   useEffect(() => {
     setLoading(true);
 
-    getItem('user')
-      .then(savedUser => {
-        if (savedUser) {
-          setUser(savedUser);
+    getItem('token')
+      .then(savedToken => {
+        if (savedToken) {
+          setToken(savedToken);
         }
       })
       .finally(() => {
@@ -71,7 +78,15 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
 
   return (
     <AuthContext.Provider
-      value={{user, login, logout, isLoading, isAuthentiacated}}>
+      value={{
+        user,
+        token,
+        isLoading,
+        isAuthentiacated,
+        login,
+        logout,
+        updateProfile,
+      }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,64 +1,135 @@
 import React, {useMemo, useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableNativeFeedback} from 'react-native';
 import {useRoute, RouteProp} from '@react-navigation/native';
-import {View, Text, Button, Colors, Chip} from 'react-native-ui-lib';
-import {useQuery} from '@tanstack/react-query';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {MenuView, NativeActionEvent} from '@react-native-menu/menu';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {TabView, SceneMap} from 'react-native-tab-view';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {
+  View,
+  Text,
+  Button,
+  Colors,
+  Dialog,
+  PanningProvider,
+  Card,
+} from 'react-native-ui-lib';
+
 import {StackList} from '../../navigations/types';
 import {fetcher} from '../../utils/fetcher';
-import StatusChips from '../../components/StatusChips';
-import type {Task} from '../../interfaces/task';
+import {formatCurrency} from '../../utils/currency';
+import {
+  ApprovalStatus,
+  type Project,
+  type UpdateStatusPayload,
+  type UpdateStatusResponse,
+} from '../../interfaces/project';
+import {useToast} from '../../contexts/toast';
+
 import Detail from './components/Detail';
-import Attachment from './components/Attachment';
+import Approvals from './components/Approvals';
 import Budget from './components/Budget';
 import TabBarComponent from './components/TabBarComponent';
-import {formatCurrency} from '../../utils/currency';
+import Status from './components/Status';
 
 const renderScene = SceneMap({
   first: Detail,
   second: Budget,
-  third: Attachment,
+  third: Approvals,
 });
 
 const TaskDetail = () => {
-  const {params} = useRoute<RouteProp<StackList, 'TaskDetail'>>();
-  const {taskId} = params;
-  const {data} = useQuery({
-    queryKey: ['task', taskId],
-    queryFn: () =>
-      fetcher<Task[]>(
-        'https://run.mocky.io/v3/c5818677-12ee-4c04-8923-e78325b7c0a1',
-      ),
+  const {show} = useToast();
+  const queryClient = useQueryClient();
+  const {
+    params: {taskId},
+  } = useRoute<RouteProp<StackList, 'TaskDetail'>>();
+
+  const [index, setIndex] = useState(0);
+  const [dialog, setDialog] = useState<{
+    isVisible: boolean;
+    data?: {approvals: ApprovalStatus};
+  }>({
+    isVisible: false,
+    data: undefined,
   });
 
-  const rand = useMemo(() => Math.random(), []);
-  const [index, setIndex] = useState(0);
+  const {data, isLoading, isFetching, refetch} = useQuery({
+    queryKey: ['project', taskId],
+    queryFn: () => fetcher<Project>({url: `/protected/projects/${taskId}`}),
+  });
+
+  const {mutate: updateStatus, isPending} = useMutation<
+    UpdateStatusResponse,
+    any,
+    UpdateStatusPayload
+  >({
+    mutationFn: body =>
+      fetcher({
+        url: `/protected/approve-projects/${taskId}`,
+        method: 'POST',
+        data: body,
+      }),
+    onSuccess: successData => {
+      if (successData.data?.pesan) {
+        show(successData.data?.pesan, {preset: 'success'});
+      }
+    },
+    onError: error => {
+      show(`Proses Gagal: ${error.message}`, {preset: 'failure'});
+    },
+    onSettled: () => {
+      refetch();
+      queryClient.invalidateQueries({queryKey: ['projects']});
+      queryClient.invalidateQueries({queryKey: ['histories']});
+    },
+  });
+
   const routes = useMemo(
     () => [
-      {key: 'first', title: 'Rincian', data: data?.[0]},
-      {key: 'second', title: 'Budget', data: data?.[0]},
-      {key: 'third', title: 'Lampiran', data: data?.[0]},
+      {key: 'first', title: 'Rincian', data: data?.data},
+      {key: 'second', title: 'Budget', data: data?.data},
+      {key: 'third', title: 'Persetujuan', data: data?.data},
     ],
     [data],
   );
+
+  const budgetApproval = useMemo(() => {
+    if (data?.data?.app_kuu_dt) {
+      return ApprovalStatus.APPROVED;
+    } else {
+      return ApprovalStatus.NOT_APPROVED;
+    }
+  }, [data]);
+
+  const handleMenuAction = ({nativeEvent}: NativeActionEvent) => {
+    if (nativeEvent.event === 'reset') {
+      setDialog({
+        isVisible: true,
+        data: {approvals: ApprovalStatus.NOT_APPROVED},
+      });
+    }
+  };
+
+  if (isLoading || isFetching) {
+    return (
+      <View flex center>
+        <Text>Memuat...</Text>
+      </View>
+    );
+  }
 
   return (
     <>
       <View backgroundColor={Colors.white} padding-12 gap-12>
         <View gap-4>
           <Text numberOfLines={3} text60BL>
-            {data?.[0].nama_prod}
+            {data?.data?.nama_prod}
           </Text>
-          <Text grey30>{data?.[0].kode_prod}</Text>
+          <Text grey30>{data?.data?.kode_prod}</Text>
           {data && (
             <View style={styles.chipContainer}>
-              <Chip label={data?.[0].segmen_name} />
-              {rand > 0.5 ? (
-                <StatusChips type="success" label="DISETUJUI" />
-              ) : (
-                <StatusChips type="warning" label="DIPROSES" />
-              )}
+              <Status status={budgetApproval} />
             </View>
           )}
         </View>
@@ -82,11 +153,38 @@ const TaskDetail = () => {
         <View row spread centerV marginB-24>
           <Text text80>Nilai Produk</Text>
           <Text text70R style={{fontWeight: 'bold'}}>
-            {formatCurrency(data?.[0].nilai_prod_rp)}
+            {formatCurrency(data?.data?.nilai_prod_rp)}
           </Text>
         </View>
-        <View row spread gap-16>
-          <Button flex style={{backgroundColor: Colors.red10}}>
+        <View row spread gap-8 centerV>
+          <MenuView
+            title="Menu Title"
+            onPressAction={handleMenuAction}
+            actions={[
+              {
+                id: 'reset',
+                title: 'Reset Status',
+                subtitle: 'Kembalikan status ke belum diproses',
+              },
+            ]}>
+            <TouchableNativeFeedback>
+              <Icon name="ellipsis-vertical" size={24} color={Colors.grey10} />
+            </TouchableNativeFeedback>
+          </MenuView>
+          <Button
+            flexG
+            flex
+            disabledBackgroundColor={Colors.grey40}
+            backgroundColor={Colors.red30}
+            disabled={
+              budgetApproval !== ApprovalStatus.NOT_APPROVED || isPending
+            }
+            onPress={() => {
+              setDialog({
+                isVisible: true,
+                data: {approvals: ApprovalStatus.APPROVED},
+              });
+            }}>
             <View flex row center>
               <Icon name="close" size={24} color={Colors.white} />
               <Text text70 style={{fontWeight: 'bold'}} color={Colors.white}>
@@ -94,7 +192,20 @@ const TaskDetail = () => {
               </Text>
             </View>
           </Button>
-          <Button flex style={{backgroundColor: Colors.green10}}>
+          <Button
+            flexG
+            flex
+            disabledBackgroundColor={Colors.grey40}
+            backgroundColor={Colors.green30}
+            disabled={
+              budgetApproval !== ApprovalStatus.NOT_APPROVED || isPending
+            }
+            onPress={() => {
+              setDialog({
+                isVisible: true,
+                data: {approvals: ApprovalStatus.APPROVED},
+              });
+            }}>
             <View flex row center>
               <Icon name="checkmark" size={24} color={Colors.white} />
               <Text text70 style={{fontWeight: 'bold'}} color={Colors.white}>
@@ -104,6 +215,33 @@ const TaskDetail = () => {
           </Button>
         </View>
       </View>
+      <Dialog
+        visible={dialog.isVisible}
+        onDismiss={() => setDialog({isVisible: false})}
+        panDirection={PanningProvider.Directions.DOWN}>
+        <Card>
+          <Text text60BL marginB-12>
+            Apakah Anda yakin?
+          </Text>
+          <Text text70>
+            Apakah Anda yakin ingin mengubah status persetujuan
+          </Text>
+          <View row right gap-12 marginT-24>
+            <Button
+              backgroundColor={Colors.grey40}
+              label="Batal"
+              onPress={() => setDialog({isVisible: false})}
+            />
+            <Button
+              label="Ya"
+              onPress={() => {
+                updateStatus({approvals: dialog.data?.approvals});
+                setDialog({isVisible: false});
+              }}
+            />
+          </View>
+        </Card>
+      </Dialog>
     </>
   );
 };

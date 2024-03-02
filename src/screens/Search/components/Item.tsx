@@ -1,15 +1,14 @@
 import * as React from 'react';
 import {StyleSheet} from 'react-native';
-import {View, Text, Card, Colors} from 'react-native-ui-lib';
 
+import {View, Text, Card, Colors} from 'react-native-ui-lib';
 import {PressableScale} from '../../../components/PressableScale';
-import {Project} from '../../../interfaces/project';
-import {formatDate} from '../../../utils/date';
+import {SearchResult} from '../../../interfaces/search';
 
 type Props = {
-  item: Project;
+  item: SearchResult;
   index: number;
-  onPress?: (item: Project) => void;
+  onPress?: (item: SearchResult) => void;
 };
 
 const Item = (props: Props) => {
@@ -21,20 +20,15 @@ const Item = (props: Props) => {
         <View row gap-12>
           <View center style={styles.avatar}>
             <Text white text70BL>
-              {item.kode_prod}
+              {item.value}
             </Text>
           </View>
           <View centerV flex-1>
             <Text text80H numberOfLines={1} $textNeutral>
-              {item.kode_prod}
+              {item.value}
             </Text>
             <Text numberOfLines={3} text70H>
-              {item.nama_prod}
-            </Text>
-            <Text text90H numberOfLines={1} $textNeutral>
-              {formatDate(item.tgl_mulai, 'DD MMM YYYY')}
-              {' - '}
-              {formatDate(item.tgl_akhir, 'DD MMM YYYY')}
+              {item.label}
             </Text>
           </View>
         </View>

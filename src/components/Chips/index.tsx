@@ -1,29 +1,26 @@
 import React, {Key} from 'react';
-import {Chip, Colors} from 'react-native-ui-lib';
+import {Chip, Colors, View, ViewProps} from 'react-native-ui-lib';
 import {PressableScale} from '../PressableScale';
 
 type ChipsProps = {
   options: {value: Key; label: string}[];
-  values?: Key[];
-  onChanges?: (value: Key[]) => void;
+  values: Key | null;
+  onChanges?: (value: Key | null) => void;
+  style?: ViewProps['style'];
 };
 
 const Chips = (props: ChipsProps) => {
-  const {values = [], options, onChanges} = props;
+  const {values, options, style, onChanges} = props;
 
   return (
-    <>
+    <View style={style}>
       {options.map(option => {
-        const selected = values?.includes(option.value);
+        const selected = values === option.value;
         return (
           <PressableScale
             key={option.value}
             onPress={() => {
-              if (selected) {
-                onChanges?.(values.filter(value => value !== option.value));
-              } else {
-                onChanges?.([...values, option.value]);
-              }
+              onChanges?.(option.value === values ? null : option.value);
             }}>
             <Chip
               label={option.label}
@@ -38,7 +35,7 @@ const Chips = (props: ChipsProps) => {
           </PressableScale>
         );
       })}
-    </>
+    </View>
   );
 };
 

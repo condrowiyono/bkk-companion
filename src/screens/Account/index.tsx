@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import {
   View,
   Text,
@@ -10,37 +10,54 @@ import {
   Colors,
 } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {getFirstAndLastNames} from '../../utils/text';
+import {useQuery} from '@tanstack/react-query';
+
+import {getFirstAndLastNames, formatEmptyValue} from '../../utils/text';
+import {fetcher} from '../../utils/fetcher';
 import {useAuth} from '../../contexts/auth';
 import BottomSheet from '../../components/BottomSheet';
 import Logo from '../../components/Logo';
-import {StyleSheet} from 'react-native';
+import {User} from '../../interfaces/user';
+import {useNavigation} from '@react-navigation/native';
+import {NavigationProp} from '../../navigations/types';
 
 const menuItems = [
-  {title: 'Lihat Profil', icon: 'person', key: 'edit-profile'},
+  {title: 'Lihat Profil', icon: 'person', key: 'profile'},
+  {title: 'Bantuan', icon: 'help-circle', key: 'help'},
   {title: 'Keluar', icon: 'log-out', key: 'logout'},
 ];
 
 const Account = () => {
-  const {user, logout} = useAuth();
+  const {logout} = useAuth();
+  const navigation = useNavigation<NavigationProp>();
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
+
+  const {data, isLoading} = useQuery({
+    queryKey: ['profile'],
+    queryFn: () => fetcher<User>({url: '/protected/profile'}),
+  });
 
   const handlePress = (key: string) => {
     if (key === 'logout') {
       setBottomSheetOpen(true);
     }
+    if (key === 'profile') {
+      navigation.navigate('Profile');
+    }
   };
 
   return (
     <View>
-      <Card borderRadius={0}>
+      <Card borderRadius={0} centerH>
         <Avatar
           backgroundColor={Colors.primary}
           labelColor={Colors.white}
-          label={getFirstAndLastNames(user.name)}
+          label={getFirstAndLastNames(data?.data?.Nama ?? 'Bukaka Teknik')}
         />
-        <Text text60>{user.name}</Text>
-        <Text>{user.email}</Text>
+        <Text text60>{formatEmptyValue(data?.data?.Nama)}</Text>
+        <Text>
+          {!isLoading ? `NIK : ${formatEmptyValue(data?.data?.NIK)}` : '-'}
+        </Text>
       </Card>
       <Card borderRadius={0}>
         <FlatList

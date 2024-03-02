@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Colors} from 'react-native-ui-lib';
 
 import History from '../screens/History';
+import Projects from '../screens/Projects';
 import Home from '../screens/Home';
 import Account from '../screens/Account';
 
@@ -28,24 +29,9 @@ const HistoryIcon = (props: TabBarIconType) => (
   />
 );
 
-const tabMapping = {
-  Home: 'Beranda',
-  History: 'Riwayat',
-  Account: 'Akun',
-};
-
-const getScreenTitle = (routeName: string) => {
-  switch (routeName) {
-    case 'Home':
-      return tabMapping.Home;
-    case 'History':
-      return tabMapping.History;
-    case 'Account':
-      return tabMapping.Account;
-    default:
-      return tabMapping.Home;
-  }
-};
+const ProjectIcon = (props: TabBarIconType) => (
+  <Icon name={props.focused ? 'ticket' : 'ticket-outline'} {...props} />
+);
 
 const Tab = createBottomTabNavigator();
 
@@ -61,6 +47,16 @@ const TabNavigator = () => {
           headerTitle: 'Beranda',
           tabBarLabel: 'Beranda',
           tabBarIcon: HomeIcon,
+        }}
+      />
+
+      <Tab.Screen
+        name="Project"
+        component={Projects}
+        options={{
+          tabBarIcon: ProjectIcon,
+          headerTitle: 'Proyek',
+          tabBarLabel: 'Proyek',
         }}
       />
 
@@ -87,5 +83,4 @@ const TabNavigator = () => {
   );
 };
 
-export {getScreenTitle};
 export default TabNavigator;
