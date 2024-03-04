@@ -8,9 +8,9 @@ import {LoginPayload, LoginResponse} from '../../interfaces/login';
 
 const Login = () => {
   const {login} = useAuth();
-  const [payload, setPayload] = useState({employe_id: '', password: ''});
-  const [valid, setValid] = useState({employe_id: false, password: false});
-  const isValid = valid.employe_id && valid.password;
+  const [payload, setPayload] = useState({username: '', password: ''});
+  const [valid, setValid] = useState({username: false, password: false});
+  const isValid = valid.username && valid.password;
 
   const {mutate, status} = useMutation<LoginResponse, any, LoginPayload>({
     mutationFn: data => fetcher({url: '/login', method: 'POST', data}),
@@ -37,25 +37,25 @@ const Login = () => {
     <View padding-12>
       <Card>
         <TextField
-          placeholder="NIK"
+          placeholder="eUsername"
           floatingPlaceholder
           enableErrors
           validateOnBlur
           validate={['required']}
           validationMessage={['Tidak boleh kosong']}
-          value={payload.employe_id}
+          value={payload.username}
           validateOnChange
-          onChangeText={employe_id => setPayload({...payload, employe_id})}
-          onChangeValidity={employe_id => setValid({...valid, employe_id})}
+          onChangeText={username => setPayload({...payload, username})}
+          onChangeValidity={username => setValid({...valid, username})}
         />
         <TextField
-          placeholder="Password"
+          placeholder="ePassword"
           secureTextEntry
           floatingPlaceholder
           enableErrors
           validateOnBlur
-          validate={['required', (value: string) => value.length > 5]}
-          validationMessage={['Tidak boleh kosong', 'Minimal 6 karakter']}
+          validate={['required']}
+          validationMessage={['Tidak boleh kosong']}
           validateOnChange
           value={payload.password}
           onChangeText={password => setPayload({...payload, password})}

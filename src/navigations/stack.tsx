@@ -13,7 +13,7 @@ import {useAuth} from '../contexts/auth';
 import Login from '../screens/Login';
 import SplashScreen from '../screens/SplashScreen';
 import Onboarding from '../screens/Onboarding';
-import TaskDetail from '../screens/TaskDetail';
+import ProjectDetail from '../screens/ProjectDetail';
 import Search from '../screens/Search';
 import Profile from '../screens/Profile';
 
@@ -35,7 +35,7 @@ const SearchIcon = (props: HeaderButtonProps) => {
 const renderSearch = (routeName: string, props: HeaderButtonProps) => {
   switch (routeName) {
     case 'History':
-    case 'Project':
+    case 'NeedAction':
       return <SearchIcon {...props} />;
     default:
       return null;
@@ -46,8 +46,8 @@ const renderScreenTitle = (routeName: string) => {
   switch (routeName) {
     case 'Home':
       return 'Beranda';
-    case 'Project':
-      return 'Proyek';
+    case 'NeedAction':
+      return 'Perlu Tindakan';
     case 'History':
       return 'Riwayat';
     case 'Account':
@@ -87,8 +87,8 @@ const StackNavigator = () => {
           />
           <Stack.Screen
             name="TaskDetail"
-            component={TaskDetail}
-            options={{title: 'Rincian'}}
+            component={ProjectDetail}
+            options={{title: 'Rincian Budget'}}
           />
           <Stack.Screen
             name="Search"

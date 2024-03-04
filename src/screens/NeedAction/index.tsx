@@ -1,16 +1,16 @@
 import React, {useMemo, useState} from 'react';
 import {TabView, SceneMap} from 'react-native-tab-view';
 import {Text} from 'react-native-ui-lib';
+import Projects from '../Projects';
 import TabBarComponent from './components/TabBarComponent';
-import ProjectHistory from '../ProjectHistory';
 
 const renderScene = SceneMap({
-  first: ProjectHistory,
+  first: Projects,
   second: () => <Text center> Akan Hadir </Text>,
   third: () => <Text center> Akan Hadir </Text>,
 });
 
-const History = () => {
+const NeedAction = () => {
   const [index, setIndex] = useState(0);
 
   const routes = useMemo(
@@ -34,4 +34,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default NeedAction;

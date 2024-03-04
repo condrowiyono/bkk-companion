@@ -102,10 +102,29 @@ const TaskDetail = () => {
   );
 
   const budgetApproval = useMemo(() => {
-    if (data?.data?.app_kuu_dt) {
-      return ApprovalStatus.APPROVED;
+    if (
+      data?.data?.app_kuu_dt &&
+      data?.data?.app_dirop_dt &&
+      data?.data?.app_dirkeu_dt
+    ) {
+      return {
+        status: ApprovalStatus.APPROVED,
+        message: 'Disetujui',
+      };
+    } else if (
+      data?.data?.app_kuu_dt ||
+      data?.data?.app_dirop_dt ||
+      data?.data?.app_dirkeu_dt
+    ) {
+      return {
+        status: ApprovalStatus.APPROVED,
+        message: 'Disetujui Sebagian',
+      };
     } else {
-      return ApprovalStatus.NOT_APPROVED;
+      return {
+        status: ApprovalStatus.NOT_APPROVED,
+        message: 'Belum disetujui',
+      };
     }
   }, [data]);
 
@@ -136,7 +155,10 @@ const TaskDetail = () => {
           <Text grey30>{data?.data?.kode_prod}</Text>
           {data && (
             <View style={styles.chipContainer}>
-              <Status status={budgetApproval} />
+              <Status
+                status={budgetApproval.status}
+                text={budgetApproval.message}
+              />
             </View>
           )}
         </View>
@@ -183,9 +205,7 @@ const TaskDetail = () => {
             flex
             disabledBackgroundColor={Colors.grey40}
             backgroundColor={Colors.red30}
-            disabled={
-              budgetApproval !== ApprovalStatus.NOT_APPROVED || isPending
-            }
+            disabled={isPending}
             onPress={() => {
               setDialog({
                 isVisible: true,
@@ -204,9 +224,7 @@ const TaskDetail = () => {
             flex
             disabledBackgroundColor={Colors.grey40}
             backgroundColor={Colors.green30}
-            disabled={
-              budgetApproval !== ApprovalStatus.NOT_APPROVED || isPending
-            }
+            disabled={isPending}
             onPress={() => {
               setDialog({
                 isVisible: true,

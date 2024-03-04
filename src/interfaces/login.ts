@@ -1,13 +1,14 @@
 import {User} from './user';
 
 export type LoginPayload = {
-  employe_id: string;
+  username: string;
   password: string;
 };
 
 export type LoginResponse = {
   message: string;
   token?: string;
+  NIK?: string;
   refresh_token?: string;
   user?: User | null;
 };

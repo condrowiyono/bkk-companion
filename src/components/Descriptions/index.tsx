@@ -5,7 +5,7 @@ import {Colors, Text, View} from 'react-native-ui-lib';
 type DescriptionsItem = {
   index: number | string;
   label: string;
-  value: string;
+  value: string | null;
 };
 
 type DescriptionsProps = {

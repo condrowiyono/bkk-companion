@@ -21,36 +21,36 @@ const Attachement = (props: DetailProps) => {
         data={[
           {
             index: 0,
-            label: 'approval_kuu',
+            label: 'Persetujuan Kepala Divisi PMO',
             value: data.approval_kuu,
           },
           {
             index: 1,
-            label: 'Tanggal Approval KUU',
+            label: 'Tanggal Persetujuan Kepala Divisi PMO',
             value: data.app_kuu_dt
               ? dayjs(data.app_kuu_dt).format('DD MMMM YYYY HH:mm:ss')
               : '-',
           },
           {
             index: 2,
-            label: 'approval_dirOp',
+            label: 'Persetujuan Direktur Operasional',
             value: data.approval_dirOp,
           },
           {
             index: 3,
-            label: 'Tanggal Approval DirOp',
+            label: 'Tanggal Persetujuan Direktur Operasional',
             value: data.app_dirop_dt
               ? dayjs(data.app_dirop_dt).format('DD MMMM YYYY HH:mm:ss')
               : '-',
           },
           {
             index: 4,
-            label: 'Approval DirKeu',
+            label: 'Persetujuan Direktur Keuangan',
             value: data.approval_dirkeu,
           },
           {
             index: 5,
-            label: 'Tanggal Approval DirKeu',
+            label: 'Tanggal Persetujuan Direktur Keuangan',
             value: data.app_dirkeu_dt
               ? dayjs(data.app_dirkeu_dt).format('DD MMMM YYYY HH:mm:ss')
               : '-',

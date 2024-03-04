@@ -4,9 +4,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Colors} from 'react-native-ui-lib';
 
 import History from '../screens/History';
-import Projects from '../screens/Projects';
 import Home from '../screens/Home';
 import Account from '../screens/Account';
+import NeedAction from '../screens/NeedAction';
 
 type TabBarIconType = {
   focused: boolean;
@@ -29,7 +29,7 @@ const HistoryIcon = (props: TabBarIconType) => (
   />
 );
 
-const ProjectIcon = (props: TabBarIconType) => (
+const NeedActionIcon = (props: TabBarIconType) => (
   <Icon name={props.focused ? 'ticket' : 'ticket-outline'} {...props} />
 );
 
@@ -51,12 +51,12 @@ const TabNavigator = () => {
       />
 
       <Tab.Screen
-        name="Project"
-        component={Projects}
+        name="NeedAction"
+        component={NeedAction}
         options={{
-          tabBarIcon: ProjectIcon,
-          headerTitle: 'Proyek',
-          tabBarLabel: 'Proyek',
+          tabBarIcon: NeedActionIcon,
+          headerTitle: 'Perlu Tindakan',
+          tabBarLabel: 'Perlu Tindakan',
         }}
       />
 
