@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {Key, useLayoutEffect, useMemo, useState} from 'react';
+import React, {Key, useLayoutEffect, useState} from 'react';
 import {View, Text} from 'react-native-ui-lib';
 
 import {NavigationProp} from '../../navigations/types';
@@ -18,8 +18,8 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 const filterOptions = [
   {value: 'projects', label: 'Proyek Budget'},
   {value: 'projects-history', label: 'Riwayat Budget'},
-  {value: 'scm', label: 'Proyek SCM'},
-  {value: 'scm-history', label: 'Proyek SCM'},
+  {value: 'po', label: 'PO'},
+  {value: 'po-history', label: 'Riwayat PO'},
 ];
 
 const Search = () => {
@@ -27,14 +27,12 @@ const Search = () => {
   const [selected, setSelected] = useState<Key | null>(null);
   const navigation = useNavigation<NavigationProp>();
   const insets = useSafeAreaInsets();
-  const containerStyle = useMemo(() => {
-    return {
-      paddingTop: insets.top + Platform.OS === 'ios' ? 52 : 0,
-      paddingBottom: insets.bottom,
-      paddingLeft: insets.left,
-      paddingRight: insets.right,
-    };
-  }, [insets]);
+  const containerStyle = {
+    paddingTop: Platform.OS === 'ios' ? insets.top + 52 : 0,
+    paddingBottom: insets.bottom,
+    paddingLeft: insets.left,
+    paddingRight: insets.right,
+  };
 
   const {data, isFetching, isSuccess, dataUpdatedAt} = useQuery({
     queryKey: ['search', search],

@@ -88,17 +88,17 @@ const StackNavigator = () => {
           <Stack.Screen
             name="TaskDetail"
             component={ProjectDetail}
-            options={{title: 'Rincian Budget'}}
+            options={{title: 'Rincian Budget', headerBackTitleVisible: false}}
           />
           <Stack.Screen
             name="Search"
             component={Search}
-            options={{title: 'Pencarian'}}
+            options={{title: 'Pencarian', headerBackTitleVisible: false}}
           />
           <Stack.Screen
             name="Profile"
             component={Profile}
-            options={{title: 'Profil'}}
+            options={{title: 'Profil', headerBackTitleVisible: false}}
           />
         </>
       ) : (

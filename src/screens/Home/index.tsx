@@ -38,7 +38,7 @@ const Home = () => {
     <ScrollView>
       <PressableScale
         style={[styles.card, {marginTop: 16}]}
-        onPress={() => handleNavigate('Project')}>
+        onPress={() => handleNavigate('NeedAction')}>
         <Card>
           <Text text60>{'Perlu Tindakan'}</Text>
           <Text grey30>{'Jumlah persetujuan yang diperlukan'}</Text>
