@@ -25,7 +25,7 @@ const Item = (props: Props) => {
             </Text>
           </View>
           <View centerV flex-1>
-            <Text text80H numberOfLines={1} $textNeutral>
+            <Text text80 numberOfLines={1} $textNeutral>
               {item.kode_prod}
             </Text>
             <Text numberOfLines={3} text70H>

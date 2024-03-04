@@ -1,11 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {Key, useEffect, useState} from 'react';
+import React, {Key, useLayoutEffect, useMemo, useState} from 'react';
 import {View, Text} from 'react-native-ui-lib';
 
 import {NavigationProp} from '../../navigations/types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Chips from '../../components/Chips';
-import {ScrollView, StyleSheet} from 'react-native';
+import {Platform, ScrollView, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {useQuery} from '@tanstack/react-query';
 import Item from './components/Item';
@@ -13,6 +13,7 @@ import ListFooter from '../../components/ListFooter';
 import {formatDate} from '../../utils/date';
 import {SearchResult} from '../../interfaces/search';
 import {fetchAll} from '../../utils/search';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const filterOptions = [
   {value: 'projects', label: 'Proyek Budget'},
@@ -25,6 +26,15 @@ const Search = () => {
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<Key | null>(null);
   const navigation = useNavigation<NavigationProp>();
+  const insets = useSafeAreaInsets();
+  const containerStyle = useMemo(() => {
+    return {
+      paddingTop: insets.top + Platform.OS === 'ios' ? 52 : 0,
+      paddingBottom: insets.bottom,
+      paddingLeft: insets.left,
+      paddingRight: insets.right,
+    };
+  }, [insets]);
 
   const {data, isFetching, isSuccess, dataUpdatedAt} = useQuery({
     queryKey: ['search', search],
@@ -40,7 +50,7 @@ const Search = () => {
     setSelected(null);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerSearchBarOptions: {
         autoFocus: true,
@@ -70,7 +80,7 @@ const Search = () => {
   }
 
   return (
-    <>
+    <View style={containerStyle}>
       <ScrollView
         alwaysBounceHorizontal={true}
         horizontal={true}
@@ -97,7 +107,7 @@ const Search = () => {
           />
         }
       />
-    </>
+    </View>
   );
 };
 

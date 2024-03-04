@@ -19,7 +19,14 @@ const History = () => {
   const scrollRef = useRef<FlatList<Project> | null>(null);
   useScrollToTop(scrollRef);
 
-  const {data, isFetching, dataUpdatedAt, refetch, isSuccess} = useQuery({
+  const {
+    data,
+    isFetching,
+    dataUpdatedAt,
+    isFetchedAfterMount,
+    refetch,
+    isSuccess,
+  } = useQuery({
     queryKey: ['histories'],
     queryFn: () => fetcher<Project[]>({url: '/protected/projects-history'}),
   });
@@ -46,7 +53,10 @@ const History = () => {
         <Item item={item} index={index} onPress={handleNavigate} />
       )}
       refreshControl={
-        <RefreshControl refreshing={isFetching} onRefresh={refetch} />
+        <RefreshControl
+          refreshing={isFetchedAfterMount && isFetching}
+          onRefresh={refetch}
+        />
       }
     />
   );

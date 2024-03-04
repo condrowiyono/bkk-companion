@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import {View, Card, Text, TextField, Button} from 'react-native-ui-lib';
+import {View, Card, TextField, Button} from 'react-native-ui-lib';
+import Toast from 'react-native-toast-message';
 import {useMutation} from '@tanstack/react-query';
 import {fetcher} from '../../utils/fetcher';
 import {useAuth} from '../../contexts/auth';
-import {useToast} from '../../contexts/toast';
 import {LoginPayload, LoginResponse} from '../../interfaces/login';
 
 const Login = () => {
-  const {login, user} = useAuth();
-  const {show} = useToast();
+  const {login} = useAuth();
   const [payload, setPayload] = useState({employe_id: '', password: ''});
   const [valid, setValid] = useState({employe_id: false, password: false});
   const isValid = valid.employe_id && valid.password;
@@ -18,11 +17,19 @@ const Login = () => {
     onSuccess: data => {
       if (data.token) {
         login(data.token);
-        show('Login success', {preset: 'success'});
+        Toast.show({
+          type: 'success',
+          text1: 'Login berhasil',
+          visibilityTime: 3000,
+        });
       }
     },
     onError: error => {
-      show(`Login gagal: ${error.message}`, {preset: 'failure'});
+      Toast.show({
+        type: 'error',
+        text1: `Login gagal: ${error.message}`,
+        visibilityTime: 3000,
+      });
     },
   });
 
@@ -55,14 +62,10 @@ const Login = () => {
           onChangeValidity={password => setValid({...valid, password})}
         />
         <Button
-          label="Login"
+          label={status === 'pending' ? 'Loading...' : 'Login'}
           disabled={!isValid || status === 'pending'}
           onPress={() => mutate(payload)}
         />
-      </Card>
-      <Card>
-        <Text>User: {JSON.stringify(user)}</Text>
-        <Text>Status: {JSON.stringify(status)}</Text>
       </Card>
     </View>
   );

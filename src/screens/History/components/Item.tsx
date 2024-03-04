@@ -25,13 +25,13 @@ const Item = (props: Props) => {
             </Text>
           </View>
           <View centerV flex-1>
-            <Text text80H numberOfLines={1} $textNeutral>
+            <Text text80 numberOfLines={1} $textNeutral>
               {item.kode_prod}
             </Text>
             <Text numberOfLines={3} text70H>
               {item.nama_prod}
             </Text>
-            <Text text90H numberOfLines={1} $textNeutral>
+            <Text text90 numberOfLines={1} $textNeutral>
               {formatDate(item.tgl_mulai, 'DD MMM YYYY')}
               {' - '}
               {formatDate(item.tgl_akhir, 'DD MMM YYYY')}

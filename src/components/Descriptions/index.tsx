@@ -29,7 +29,7 @@ const Descriptions = (props: DescriptionsProps) => {
           style={{
             backgroundColor: index % 2 === 0 ? Colors.grey60 : 'transparent',
           }}>
-          <Text text80H style={styles.label}>
+          <Text text80 style={styles.label}>
             {item.label}:
           </Text>
           <Text flex numberOfLines={3} text80H>

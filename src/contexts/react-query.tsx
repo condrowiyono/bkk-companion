@@ -3,22 +3,22 @@ import {QueryCache, QueryClient} from '@tanstack/react-query';
 import {PersistQueryClientProvider} from '@tanstack/react-query-persist-client';
 import {createAsyncStoragePersister} from '@tanstack/query-async-storage-persister';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useToast} from './toast';
+import Toast from 'react-native-toast-message';
 
 const ReactQueryProvider = ({children}: {children: React.ReactNode}) => {
-  const {show} = useToast();
-
   const queryClient = useMemo(
     () =>
       new QueryClient({
         queryCache: new QueryCache({
           onError: error =>
-            show(`Gagal mendapatkan data: ${error.message}`, {
-              preset: 'failure',
+            Toast.show({
+              type: 'error',
+              text1: `Gagal mendapatkan data: ${error.message}`,
+              visibilityTime: 3000,
             }),
         }),
       }),
-    [show],
+    [],
   );
 
   const persister = useMemo(

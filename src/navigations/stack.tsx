@@ -108,7 +108,11 @@ const StackNavigator = () => {
             component={Onboarding}
             options={{headerShown: false}}
           />
-          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerBackTitleVisible: false}}
+          />
         </>
       )}
     </Stack.Navigator>

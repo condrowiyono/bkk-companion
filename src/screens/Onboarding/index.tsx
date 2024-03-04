@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Button, Text, View} from 'react-native-ui-lib';
-import Logo from '../../components/Logo';
+import {Button, Image, View} from 'react-native-ui-lib';
 import {NavigationProp} from '../../navigations/types';
+import {Dimensions} from 'react-native';
 
 function SplashScreen() {
   const navigation = useNavigation<NavigationProp>();
@@ -14,9 +14,22 @@ function SplashScreen() {
         justifyContent: 'center',
         gap: 12,
       }}>
-      <Text>Onboarding</Text>
-      <Logo />
-      <Button label="Lanjutkan" onPress={() => navigation.navigate('Login')} />
+      <Image
+        source={require('./img/onboard.png')}
+        style={{
+          width: Dimensions.get('window').width,
+          height: Dimensions.get('window').height,
+        }}
+      />
+      <Button
+        label="Lanjutkan"
+        onPress={() => navigation.navigate('Login')}
+        style={{
+          position: 'absolute',
+          bottom: 24,
+          width: '80%',
+        }}
+      />
     </View>
   );
 }

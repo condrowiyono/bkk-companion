@@ -13,8 +13,6 @@ const Profile = () => {
     queryFn: () => fetcher<User>({url: '/protected/profile'}),
   });
 
-  console.log('Profile -> data', data?.data);
-
   const profile = useMemo(() => {
     return [
       {

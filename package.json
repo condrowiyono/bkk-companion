@@ -35,6 +35,7 @@
     "react-native-screens": "^3.29.0",
     "react-native-shimmer-placeholder": "^2.0.9",
     "react-native-tab-view": "^3.5.2",
+    "react-native-toast-message": "^2.2.0",
     "react-native-ui-lib": "^7.16.0",
     "react-native-vector-icons": "^10.0.3"
   },

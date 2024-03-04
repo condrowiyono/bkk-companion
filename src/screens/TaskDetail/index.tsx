@@ -5,6 +5,7 @@ import {MenuView, NativeActionEvent} from '@react-native-menu/menu';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {TabView, SceneMap} from 'react-native-tab-view';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Toast from 'react-native-toast-message';
 import {
   View,
   Text,
@@ -24,7 +25,6 @@ import {
   type UpdateStatusPayload,
   type UpdateStatusResponse,
 } from '../../interfaces/project';
-import {useToast} from '../../contexts/toast';
 
 import Detail from './components/Detail';
 import Approvals from './components/Approvals';
@@ -39,7 +39,6 @@ const renderScene = SceneMap({
 });
 
 const TaskDetail = () => {
-  const {show} = useToast();
   const queryClient = useQueryClient();
   const {
     params: {taskId},
@@ -72,11 +71,19 @@ const TaskDetail = () => {
       }),
     onSuccess: successData => {
       if (successData.data?.pesan) {
-        show(successData.data?.pesan, {preset: 'success'});
+        Toast.show({
+          type: 'success',
+          text1: successData.data?.pesan,
+          visibilityTime: 3000,
+        });
       }
     },
     onError: error => {
-      show(`Proses Gagal: ${error.message}`, {preset: 'failure'});
+      Toast.show({
+        type: 'error',
+        text1: `Proses Gagal: ${error.message}`,
+        visibilityTime: 3000,
+      });
     },
     onSettled: () => {
       refetch();
@@ -158,7 +165,7 @@ const TaskDetail = () => {
         </View>
         <View row spread gap-8 centerV>
           <MenuView
-            title="Menu Title"
+            title="Pilih Aksi"
             onPressAction={handleMenuAction}
             actions={[
               {

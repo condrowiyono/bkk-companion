@@ -8,13 +8,13 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import ReactQueryProvider from './src/contexts/react-query';
 import StackNavigator from './src/navigations/stack';
-import {ToastProvider} from './src/contexts/toast';
 import {AuthProvider} from './src/contexts/auth';
 
 import {configureDesignSystem} from './src/themes/config';
 
 import './src/libraries/net-info';
 import './src/libraries/dayjs';
+import Toast from 'react-native-toast-message';
 
 configureDesignSystem();
 
@@ -35,13 +35,12 @@ function App() {
       <SafeAreaProvider>
         <BottomSheetModalProvider>
           <AuthProvider>
-            <ToastProvider>
-              <ReactQueryProvider>
-                <NavigationContainer>
-                  <StackNavigator />
-                </NavigationContainer>
-              </ReactQueryProvider>
-            </ToastProvider>
+            <ReactQueryProvider>
+              <NavigationContainer>
+                <StackNavigator />
+                <Toast position="bottom" />
+              </NavigationContainer>
+            </ReactQueryProvider>
           </AuthProvider>
         </BottomSheetModalProvider>
       </SafeAreaProvider>
