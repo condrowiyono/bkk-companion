@@ -19,6 +19,7 @@ import Profile from '../screens/Profile';
 
 import TabNavigator from './tab';
 import {NavigationProp, StackList} from './types';
+import PreOrderDetail from '../screens/PreOrderDetail';
 
 const Stack = createNativeStackNavigator<StackList>();
 
@@ -86,9 +87,14 @@ const StackNavigator = () => {
             })}
           />
           <Stack.Screen
-            name="TaskDetail"
+            name="ProjectDetail"
             component={ProjectDetail}
             options={{title: 'Rincian Budget', headerBackTitleVisible: false}}
+          />
+          <Stack.Screen
+            name="PreOrderDetail"
+            component={PreOrderDetail}
+            options={{title: 'Rincian PO', headerBackTitleVisible: false}}
           />
           <Stack.Screen
             name="Search"

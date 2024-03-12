@@ -32,7 +32,7 @@ const ProjectHistory = () => {
   });
 
   const handleNavigate = (item: Project) => {
-    navigation.navigate('TaskDetail', {taskId: item.kode_prod});
+    navigation.navigate('ProjectDetail', {taskId: item.kode_prod});
   };
 
   return (

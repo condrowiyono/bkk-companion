@@ -3,10 +3,11 @@ import {TabView, SceneMap} from 'react-native-tab-view';
 import {Text} from 'react-native-ui-lib';
 import Projects from '../Projects';
 import TabBarComponent from './components/TabBarComponent';
+import PreOrderSreen from '../PreOrder';
 
 const renderScene = SceneMap({
   first: Projects,
-  second: () => <Text center> Akan Hadir </Text>,
+  second: PreOrderSreen,
   third: () => <Text center> Akan Hadir </Text>,
 });
 

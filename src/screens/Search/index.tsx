@@ -40,7 +40,7 @@ const Search = () => {
   });
 
   const handleNavigate = (item: SearchResult) => {
-    navigation.navigate('TaskDetail', {taskId: item.value});
+    navigation.navigate('ProjectDetail', {taskId: item.value});
   };
 
   const handleReset = () => {

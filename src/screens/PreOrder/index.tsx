@@ -6,16 +6,16 @@ import {useQuery} from '@tanstack/react-query';
 import Empty from '../../components/Empty';
 import ListHeader from '../../components/ListHeader';
 import ListFooter from '../../components/ListFooter';
-import {Project} from '../../interfaces/project';
+import {PreOrder} from '../../interfaces/preOrder';
 import {NavigationProp} from '../../navigations/types';
 import {formatDate} from '../../utils/date';
 import {fetcher} from '../../utils/fetcher';
 
 import Item from './components/Item';
 
-const Projects = () => {
+const PreOrderSreen = () => {
   const navigation = useNavigation<NavigationProp>();
-  const scrollRef = useRef<FlatList<Project> | null>(null);
+  const scrollRef = useRef<FlatList<PreOrder> | null>(null);
   useScrollToTop(scrollRef);
 
   const {
@@ -26,19 +26,19 @@ const Projects = () => {
     refetch,
     isSuccess,
   } = useQuery({
-    queryKey: ['projects'],
-    queryFn: () => fetcher<Project[]>({url: '/protected/projects'}),
+    queryKey: ['pre_orders'],
+    queryFn: () => fetcher<PreOrder[]>({url: '/protected/po'}),
   });
 
-  const handleNavigate = (item: Project) => {
-    navigation.navigate('ProjectDetail', {taskId: item.kode_prod});
+  const handleNavigate = (item: PreOrder) => {
+    navigation.navigate('PreOrderDetail', {taskId: item.PONumber2});
   };
 
   return (
     <FlatList
       ref={scrollRef}
       data={data?.data}
-      keyExtractor={item => item.kode_prod}
+      keyExtractor={item => item.PONumber2}
       ListEmptyComponent={!isFetching ? <Empty /> : null}
       ListHeaderComponent={<ListHeader show={isFetching} />}
       ListFooterComponent={
@@ -60,4 +60,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default PreOrderSreen;

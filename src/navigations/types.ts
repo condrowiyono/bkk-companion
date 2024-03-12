@@ -6,7 +6,8 @@ export type StackList = {
   Login: undefined;
   Onboarding: undefined;
   TabNavigator: {screen?: string; screenOption?: {tab: number}} | undefined;
-  TaskDetail: {taskId: string};
+  ProjectDetail: {taskId: string};
+  PreOrderDetail: {taskId: string};
   Search: undefined;
   Profile: undefined;
 };

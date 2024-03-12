@@ -18,31 +18,31 @@ import {
 
 import {StackList} from '../../navigations/types';
 import {fetcher} from '../../utils/fetcher';
-import {formatCurrency} from '../../utils/currency';
 import {
+  type PreOrder,
   ApprovalStatus,
-  type Project,
   type UpdateStatusPayload,
   type UpdateStatusResponse,
-} from '../../interfaces/project';
+} from '../../interfaces/preOrder';
 
-import Detail from './components/Detail';
-import Approvals from './components/Approvals';
-import Budget from './components/Budget';
 import TabBarComponent from './components/TabBarComponent';
 import Status from './components/Status';
+import {formatDate} from '../../utils/date';
+import Detail from './components/Detail';
+import {formatCurrency} from '../../utils/currency';
+import ItemTab from './components/ItemTab';
 
 const renderScene = SceneMap({
   first: Detail,
-  second: Budget,
-  third: Approvals,
+  second: ItemTab,
+  third: () => <Text center> Akan Hadir </Text>,
 });
 
-const ProjectDetail = () => {
+const PreOrderDetail = () => {
   const queryClient = useQueryClient();
   const {
     params: {taskId},
-  } = useRoute<RouteProp<StackList, 'ProjectDetail'>>();
+  } = useRoute<RouteProp<StackList, 'PreOrderDetail'>>();
 
   const [index, setIndex] = useState(0);
   const [dialog, setDialog] = useState<{
@@ -54,8 +54,8 @@ const ProjectDetail = () => {
   });
 
   const {data, isLoading, isFetching, refetch} = useQuery({
-    queryKey: ['project', taskId],
-    queryFn: () => fetcher<Project>({url: `/protected/projects/${taskId}`}),
+    queryKey: ['pre_order', taskId],
+    queryFn: () => fetcher<PreOrder>({url: `/protected/po/${taskId}`}),
   });
 
   const {mutate: updateStatus, isPending} = useMutation<
@@ -65,7 +65,7 @@ const ProjectDetail = () => {
   >({
     mutationFn: body =>
       fetcher({
-        url: `/protected/approve-projects/${taskId}`,
+        url: `/protected/approve-po/${taskId}`,
         method: 'POST',
         data: body,
       }),
@@ -95,38 +95,18 @@ const ProjectDetail = () => {
   const routes = useMemo(
     () => [
       {key: 'first', title: 'Rincian', data: data?.data},
-      {key: 'second', title: 'Budget', data: data?.data},
+      {key: 'second', title: 'Item', data: data?.data},
       {key: 'third', title: 'Persetujuan', data: data?.data},
     ],
     [data],
   );
 
   const budgetApproval = useMemo(() => {
-    if (
-      data?.data?.app_kuu_dt &&
-      data?.data?.app_dirop_dt &&
-      data?.data?.app_dirkeu_dt
-    ) {
-      return {
-        status: ApprovalStatus.APPROVED,
-        message: 'Disetujui',
-      };
-    } else if (
-      data?.data?.app_kuu_dt ||
-      data?.data?.app_dirop_dt ||
-      data?.data?.app_dirkeu_dt
-    ) {
-      return {
-        status: ApprovalStatus.APPROVED,
-        message: 'Disetujui Sebagian',
-      };
-    } else {
-      return {
-        status: ApprovalStatus.NOT_APPROVED,
-        message: 'Belum disetujui',
-      };
-    }
-  }, [data]);
+    return {
+      status: 1,
+      message: 'Disetujui',
+    };
+  }, []);
 
   const handleMenuAction = ({nativeEvent}: NativeActionEvent) => {
     if (nativeEvent.event === 'reset') {
@@ -150,9 +130,12 @@ const ProjectDetail = () => {
       <View backgroundColor={Colors.white} padding-12 gap-12>
         <View gap-4>
           <Text numberOfLines={3} text60BL>
-            {data?.data?.nama_prod}
+            {data?.data?.PONumber}
           </Text>
-          <Text grey30>{data?.data?.kode_prod}</Text>
+          <Text numberOfLines={3} text80BL>
+            {data?.data?.VendorName} - {data?.data?.VendorNo}
+          </Text>
+          <Text grey30>{formatDate(data?.data?.PODate)}</Text>
           {data && (
             <View style={styles.chipContainer}>
               <Status
@@ -180,11 +163,12 @@ const ProjectDetail = () => {
         style={styles.actions}
         padding-12>
         <View row spread centerV marginB-24>
-          <Text text80>Nilai Produk</Text>
+          <Text text80>Nilai</Text>
           <Text text70R style={{fontWeight: 'bold'}}>
-            {formatCurrency(data?.data?.nilai_prod_rp)}
+            {formatCurrency(data?.data?.nilai)}
           </Text>
         </View>
+
         <View row spread gap-8 centerV>
           <MenuView
             title="Pilih Aksi"
@@ -294,4 +278,4 @@ const styles = StyleSheet.create({
     gap: 4,
   },
 });
-export default ProjectDetail;
+export default PreOrderDetail;
