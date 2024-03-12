@@ -8,7 +8,7 @@ type DetailProps = {
   route: {data?: Project};
 };
 
-const formatApproval = (approval: string | number | undefined) => {
+const formatApproval = (approval: string | null | undefined) => {
   const parseApproval = Number(approval);
   if (parseApproval === ApprovalStatus.APPROVED) {
     return 'Disetujui';
@@ -18,7 +18,7 @@ const formatApproval = (approval: string | number | undefined) => {
     return 'Belum diproses';
   }
 
-  return approval;
+  return approval || '-';
 };
 
 const Approval = (props: DetailProps) => {

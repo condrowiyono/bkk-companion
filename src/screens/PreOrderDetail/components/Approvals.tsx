@@ -17,7 +17,7 @@ const formatApproval = (approval: string | null) => {
     return 'Belum diproses';
   }
 
-  return approval;
+  return approval || '-';
 };
 
 const Approval = (props: DetailProps) => {
