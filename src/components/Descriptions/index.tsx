@@ -27,7 +27,7 @@ const Descriptions = (props: DescriptionsProps) => {
           row
           padding-12
           style={{
-            backgroundColor: index % 2 === 0 ? Colors.grey60 : 'transparent',
+            backgroundColor: index % 2 === 0 ? Colors.grey70 : 'transparent',
           }}>
           <Text text80 style={styles.label}>
             {item.label}:

@@ -26,16 +26,16 @@ import {
 } from '../../interfaces/preOrder';
 
 import TabBarComponent from './components/TabBarComponent';
-import Status from './components/Status';
 import {formatDate} from '../../utils/date';
 import Detail from './components/Detail';
 import {formatCurrency} from '../../utils/currency';
 import ItemTab from './components/ItemTab';
+import Approval from './components/Approvals';
 
 const renderScene = SceneMap({
   first: Detail,
   second: ItemTab,
-  third: () => <Text center> Akan Hadir </Text>,
+  third: Approval,
 });
 
 const PreOrderDetail = () => {
@@ -53,8 +53,8 @@ const PreOrderDetail = () => {
     data: undefined,
   });
 
-  const {data, isLoading, isFetching, refetch} = useQuery({
-    queryKey: ['pre_order', taskId],
+  const {data, isLoading, isFetching, refetch, isError} = useQuery({
+    queryKey: ['po', taskId],
     queryFn: () => fetcher<PreOrder>({url: `/protected/po/${taskId}`}),
   });
 
@@ -71,24 +71,16 @@ const PreOrderDetail = () => {
       }),
     onSuccess: successData => {
       if (successData.data?.pesan) {
-        Toast.show({
-          type: 'success',
-          text1: successData.data?.pesan,
-          visibilityTime: 3000,
-        });
+        Toast.show({type: 'success', text1: successData.data?.pesan});
       }
     },
     onError: error => {
-      Toast.show({
-        type: 'error',
-        text1: `Proses Gagal: ${error.message}`,
-        visibilityTime: 3000,
-      });
+      Toast.show({type: 'error', text1: `Proses Gagal: ${error.message}`});
     },
     onSettled: () => {
       refetch();
-      queryClient.invalidateQueries({queryKey: ['projects']});
-      queryClient.invalidateQueries({queryKey: ['histories']});
+      queryClient.invalidateQueries({queryKey: ['po']});
+      queryClient.invalidateQueries({queryKey: ['po-history']});
     },
   });
 
@@ -100,13 +92,6 @@ const PreOrderDetail = () => {
     ],
     [data],
   );
-
-  const budgetApproval = useMemo(() => {
-    return {
-      status: 1,
-      message: 'Disetujui',
-    };
-  }, []);
 
   const handleMenuAction = ({nativeEvent}: NativeActionEvent) => {
     if (nativeEvent.event === 'reset') {
@@ -125,25 +110,25 @@ const PreOrderDetail = () => {
     );
   }
 
+  if (isError) {
+    return (
+      <View flex center>
+        <Text>Terjadi kesalahan</Text>
+      </View>
+    );
+  }
+
   return (
     <>
       <View backgroundColor={Colors.white} padding-12 gap-12>
         <View gap-4>
-          <Text numberOfLines={3} text60BL>
-            {data?.data?.PONumber}
-          </Text>
           <Text numberOfLines={3} text80BL>
             {data?.data?.VendorName} - {data?.data?.VendorNo}
           </Text>
-          <Text grey30>{formatDate(data?.data?.PODate)}</Text>
-          {data && (
-            <View style={styles.chipContainer}>
-              <Status
-                status={budgetApproval.status}
-                text={budgetApproval.message}
-              />
-            </View>
-          )}
+          <Text numberOfLines={3} text60BL>
+            {data?.data?.PONumber}
+          </Text>
+          <Text grey30>{formatDate(data?.data?.PODate, 'DD MMMM YYYY')}</Text>
         </View>
       </View>
 

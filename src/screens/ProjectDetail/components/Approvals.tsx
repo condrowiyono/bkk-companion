@@ -2,13 +2,26 @@ import React from 'react';
 import {View} from 'react-native-ui-lib';
 import dayjs from 'dayjs';
 import Descriptions from '../../../components/Descriptions';
-import type {Project} from '../../../interfaces/project';
+import {ApprovalStatus, type Project} from '../../../interfaces/project';
 
 type DetailProps = {
   route: {data?: Project};
 };
 
-const Attachement = (props: DetailProps) => {
+const formatApproval = (approval: string | number | undefined) => {
+  const parseApproval = Number(approval);
+  if (parseApproval === ApprovalStatus.APPROVED) {
+    return 'Disetujui';
+  } else if (parseApproval === ApprovalStatus.REJECTED) {
+    return 'Ditolak';
+  } else if (parseApproval === ApprovalStatus.NOT_APPROVED) {
+    return 'Belum diproses';
+  }
+
+  return approval;
+};
+
+const Approval = (props: DetailProps) => {
   const {data} = props.route;
 
   if (!data) {
@@ -22,7 +35,7 @@ const Attachement = (props: DetailProps) => {
           {
             index: 0,
             label: 'Persetujuan Kepala Divisi PMO',
-            value: data.approval_kuu,
+            value: formatApproval(data.approval_kuu),
           },
           {
             index: 1,
@@ -34,7 +47,7 @@ const Attachement = (props: DetailProps) => {
           {
             index: 2,
             label: 'Persetujuan Direktur Operasional',
-            value: data.approval_dirOp,
+            value: formatApproval(data.approval_dirOp),
           },
           {
             index: 3,
@@ -46,7 +59,7 @@ const Attachement = (props: DetailProps) => {
           {
             index: 4,
             label: 'Persetujuan Direktur Keuangan',
-            value: data.approval_dirkeu,
+            value: formatApproval(data.approval_dirkeu),
           },
           {
             index: 5,
@@ -61,4 +74,4 @@ const Attachement = (props: DetailProps) => {
   );
 };
 
-export default Attachement;
+export default Approval;

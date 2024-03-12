@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {StyleSheet, TouchableNativeFeedback} from 'react-native';
+import {ScrollView, StyleSheet, TouchableNativeFeedback} from 'react-native';
 import {useRoute, RouteProp} from '@react-navigation/native';
 import {MenuView, NativeActionEvent} from '@react-native-menu/menu';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
@@ -69,26 +69,18 @@ const ProjectDetail = () => {
         method: 'POST',
         data: body,
       }),
-    onSuccess: successData => {
-      if (successData.data?.pesan) {
-        Toast.show({
-          type: 'success',
-          text1: successData.data?.pesan,
-          visibilityTime: 3000,
-        });
+    onSuccess: success => {
+      if (success.data?.pesan) {
+        Toast.show({type: 'success', text1: success.data?.pesan});
       }
     },
     onError: error => {
-      Toast.show({
-        type: 'error',
-        text1: `Proses Gagal: ${error.message}`,
-        visibilityTime: 3000,
-      });
+      Toast.show({type: 'error', text1: `Proses Gagal: ${error.message}`});
     },
     onSettled: () => {
       refetch();
       queryClient.invalidateQueries({queryKey: ['projects']});
-      queryClient.invalidateQueries({queryKey: ['histories']});
+      queryClient.invalidateQueries({queryKey: ['projects_history']});
     },
   });
 
@@ -100,33 +92,6 @@ const ProjectDetail = () => {
     ],
     [data],
   );
-
-  const budgetApproval = useMemo(() => {
-    if (
-      data?.data?.app_kuu_dt &&
-      data?.data?.app_dirop_dt &&
-      data?.data?.app_dirkeu_dt
-    ) {
-      return {
-        status: ApprovalStatus.APPROVED,
-        message: 'Disetujui',
-      };
-    } else if (
-      data?.data?.app_kuu_dt ||
-      data?.data?.app_dirop_dt ||
-      data?.data?.app_dirkeu_dt
-    ) {
-      return {
-        status: ApprovalStatus.APPROVED,
-        message: 'Disetujui Sebagian',
-      };
-    } else {
-      return {
-        status: ApprovalStatus.NOT_APPROVED,
-        message: 'Belum disetujui',
-      };
-    }
-  }, [data]);
 
   const handleMenuAction = ({nativeEvent}: NativeActionEvent) => {
     if (nativeEvent.event === 'reset') {
@@ -149,18 +114,30 @@ const ProjectDetail = () => {
     <>
       <View backgroundColor={Colors.white} padding-12 gap-12>
         <View gap-4>
+          <Text grey30>{data?.data?.kode_prod}</Text>
           <Text numberOfLines={3} text60BL>
             {data?.data?.nama_prod}
           </Text>
-          <Text grey30>{data?.data?.kode_prod}</Text>
-          {data && (
-            <View style={styles.chipContainer}>
-              <Status
-                status={budgetApproval.status}
-                text={budgetApproval.message}
-              />
+          <ScrollView horizontal contentContainerStyle={{gap: 16}}>
+            <View>
+              <Text grey30 center text90L>
+                Kepala Divisi PMO
+              </Text>
+              <Status status={data?.data?.approval_kuu} />
             </View>
-          )}
+            <View>
+              <Text grey30 center>
+                Direktur Operasional
+              </Text>
+              <Status status={data?.data?.approval_dirOp} />
+            </View>
+            <View>
+              <Text grey30 center>
+                Direktur Keuangan
+              </Text>
+              <Status status={data?.data?.approval_dirkeu} />
+            </View>
+          </ScrollView>
         </View>
       </View>
 

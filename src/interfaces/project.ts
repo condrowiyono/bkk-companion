@@ -14,9 +14,9 @@ export type Project = {
   tgl_akhir: string;
   tgl_kontrak: string;
   nilai_prod_rp: string;
-  approval_kuu: string | null;
-  approval_dirOp: string | null;
-  approval_dirkeu: string | null;
+  approval_kuu?: string;
+  approval_dirOp?: string;
+  approval_dirkeu?: string;
   app_kuu_dt: string | null;
   app_dirop_dt: string | null;
   app_dirkeu_dt: string | null;

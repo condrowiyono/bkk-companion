@@ -30,7 +30,7 @@ const Home = () => {
     queryFn: () => fetcher<Project[]>({url: '/protected/projects'}),
   });
   const {data: histories} = useQuery({
-    queryKey: ['histories'],
+    queryKey: ['projects-history'],
     queryFn: () => fetcher<Project[]>({url: '/protected/projects-history'}),
   });
 

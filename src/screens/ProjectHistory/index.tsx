@@ -27,7 +27,7 @@ const ProjectHistory = () => {
     refetch,
     isSuccess,
   } = useQuery({
-    queryKey: ['histories'],
+    queryKey: ['projects_history'],
     queryFn: () => fetcher<Project[]>({url: '/protected/projects-history'}),
   });
 

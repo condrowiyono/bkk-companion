@@ -17,19 +17,11 @@ const Login = () => {
     onSuccess: data => {
       if (data.token) {
         login(data.token);
-        Toast.show({
-          type: 'success',
-          text1: 'Login berhasil',
-          visibilityTime: 3000,
-        });
+        Toast.show({type: 'success', text1: 'Login berhasil'});
       }
     },
     onError: error => {
-      Toast.show({
-        type: 'error',
-        text1: `Login gagal: ${error.message}`,
-        visibilityTime: 3000,
-      });
+      Toast.show({type: 'error', text1: `Login gagal: ${error.message}`});
     },
   });
 

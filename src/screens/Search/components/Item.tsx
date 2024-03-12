@@ -19,11 +19,14 @@ const Item = (props: Props) => {
       <Card padding={false}>
         <View row gap-12>
           <View center style={styles.avatar}>
-            <Text white text70BL>
+            <Text white text70BL center>
               {item.value}
             </Text>
           </View>
           <View centerV flex-1>
+            <Text text90BL numberOfLines={1} $textNeutral uppercase>
+              {item.type}
+            </Text>
             <Text text80H numberOfLines={1} $textNeutral>
               {item.value}
             </Text>
@@ -39,7 +42,7 @@ const Item = (props: Props) => {
 
 const styles = StyleSheet.create({
   card: {
-    marginHorizontal: 16,
+    marginHorizontal: 8,
   },
   avatar: {
     minHeight: 120,

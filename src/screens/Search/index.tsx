@@ -40,7 +40,13 @@ const Search = () => {
   });
 
   const handleNavigate = (item: SearchResult) => {
-    navigation.navigate('ProjectDetail', {taskId: item.value});
+    if (item.type === 'projects' || item.type === 'projects-history') {
+      navigation.navigate('ProjectDetail', {taskId: item.value});
+      return;
+    } else if (item.type === 'po') {
+      navigation.navigate('ProjectDetail', {taskId: item.value});
+      return;
+    }
   };
 
   const handleReset = () => {

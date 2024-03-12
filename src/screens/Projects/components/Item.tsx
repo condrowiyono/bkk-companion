@@ -45,7 +45,7 @@ const Item = (props: Props) => {
 
 const styles = StyleSheet.create({
   card: {
-    marginHorizontal: 16,
+    marginHorizontal: 8,
   },
   avatar: {
     minHeight: 120,

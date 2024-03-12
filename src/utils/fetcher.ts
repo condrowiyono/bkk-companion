@@ -7,6 +7,7 @@ export interface Response<T = any> {
   data?: T;
   errors?: string[];
   message: string;
+  status: number;
 }
 
 export const instance = axios.create({
@@ -47,6 +48,12 @@ export async function fetcher<TResponse = any, TError = any, TData = any>(
       },
     );
     const {data} = await instance.request<Response<TResponse>>(requestConfig);
+
+    // if proxy return 500 then throw error
+    if (data.status === 500) {
+      throw data.message;
+    }
+
     return data;
   } catch (error) {
     throw (error as AxiosError<TResponse, TData>).response?.data as TError;

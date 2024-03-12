@@ -6,28 +6,29 @@ import {useQuery} from '@tanstack/react-query';
 import Empty from '../../components/Empty';
 import ListHeader from '../../components/ListHeader';
 import ListFooter from '../../components/ListFooter';
+
 import {PreOrder} from '../../interfaces/preOrder';
 import {NavigationProp} from '../../navigations/types';
-import {formatDate} from '../../utils/date';
 import {fetcher} from '../../utils/fetcher';
+import {formatDate} from '../../utils/date';
 
 import Item from './components/Item';
 
-const PreOrderSreen = () => {
+const PreOrderHistory = () => {
   const navigation = useNavigation<NavigationProp>();
   const scrollRef = useRef<FlatList<PreOrder> | null>(null);
   useScrollToTop(scrollRef);
 
   const {
     data,
-    isFetchedAfterMount,
     isFetching,
     dataUpdatedAt,
+    isFetchedAfterMount,
     refetch,
     isSuccess,
   } = useQuery({
-    queryKey: ['po'],
-    queryFn: () => fetcher<PreOrder[]>({url: '/protected/po'}),
+    queryKey: ['po-history'],
+    queryFn: () => fetcher<PreOrder[]>({url: '/protected/po-history'}),
   });
 
   const handleNavigate = (item: PreOrder) => {
@@ -39,6 +40,7 @@ const PreOrderSreen = () => {
       ref={scrollRef}
       data={data?.data}
       keyExtractor={item => item.PONumber2}
+      contentInsetAdjustmentBehavior="automatic"
       ListEmptyComponent={!isFetching ? <Empty /> : null}
       ListHeaderComponent={<ListHeader show={isFetching} />}
       ListFooterComponent={
@@ -47,17 +49,17 @@ const PreOrderSreen = () => {
           show={isSuccess}
         />
       }
+      renderItem={({item, index}) => (
+        <Item item={item} index={index} onPress={handleNavigate} />
+      )}
       refreshControl={
         <RefreshControl
           refreshing={isFetchedAfterMount && isFetching}
           onRefresh={refetch}
         />
       }
-      renderItem={({item, index}) => (
-        <Item item={item} index={index} onPress={handleNavigate} />
-      )}
     />
   );
 };
 
-export default PreOrderSreen;
+export default PreOrderHistory;

@@ -21,7 +21,7 @@ const Item = (props: Props) => {
         <View row gap-12>
           <View center style={styles.avatar}>
             <Text white text900BL center>
-              {item.PONumber.slice(0, 5)}
+              {item.PONumber?.slice(0, 5)}
             </Text>
           </View>
           <View centerV flex-1>

@@ -2,16 +2,23 @@ import React from 'react';
 import StatusChips from '../../../components/StatusChips';
 import {ApprovalStatus} from '../../../interfaces/project';
 
-const Status = ({status, text}: {status?: ApprovalStatus; text: string}) => {
-  if (status === ApprovalStatus.APPROVED) {
-    return <StatusChips label={text} type="success" />;
+type StatusProps = {
+  status?: ApprovalStatus | number | string;
+  text?: string;
+};
+
+const Status = ({status, text}: StatusProps) => {
+  const parseStatus = Number(status);
+
+  if (parseStatus === ApprovalStatus.APPROVED) {
+    return <StatusChips label={text || 'Disetujui'} type="success" />;
   }
 
-  if (status === ApprovalStatus.REJECTED) {
-    return <StatusChips label={text} type="danger" />;
+  if (parseStatus === ApprovalStatus.REJECTED) {
+    return <StatusChips label={text || 'Ditolak'} type="danger" />;
   }
 
-  return <StatusChips label={text} type="primary" />;
+  return <StatusChips label={text || 'Belum diproses'} type="warning" />;
 };
 
 export default Status;
