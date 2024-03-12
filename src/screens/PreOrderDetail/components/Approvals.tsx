@@ -28,7 +28,7 @@ const Approval = (props: DetailProps) => {
   }
 
   return (
-    <View>
+    <View flexG>
       <Descriptions
         data={[
           {

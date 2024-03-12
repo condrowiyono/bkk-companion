@@ -15,7 +15,7 @@ const Budget = (props: BudgetProps) => {
   }
 
   return (
-    <View>
+    <View flexG>
       <Descriptions
         data={[
           {

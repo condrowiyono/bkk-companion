@@ -17,7 +17,7 @@ const Detail = (props: DetailProps) => {
   }
 
   return (
-    <View>
+    <View flexG>
       <Descriptions
         data={[
           {

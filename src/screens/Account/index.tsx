@@ -16,7 +16,6 @@ import {getFirstAndLastNames, formatEmptyValue} from '../../utils/text';
 import {fetcher} from '../../utils/fetcher';
 import {useAuth} from '../../contexts/auth';
 import BottomSheet from '../../components/BottomSheet';
-import Logo from '../../components/Logo';
 import {User} from '../../interfaces/user';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '../../navigations/types';
@@ -47,7 +46,7 @@ const Account = () => {
   };
 
   return (
-    <View>
+    <View flexG>
       <Card borderRadius={0} centerH>
         <Avatar
           backgroundColor={Colors.primary}
@@ -59,25 +58,25 @@ const Account = () => {
           {!isLoading ? `NIK : ${formatEmptyValue(data?.data?.NIK)}` : '-'}
         </Text>
       </Card>
-      <Card borderRadius={0}>
-        <FlatList
-          data={menuItems}
-          keyExtractor={item => item.key}
-          renderItem={({item}) => (
-            <ListItem height={48} onPress={() => handlePress(item.key)}>
-              <ListItem.Part left>
-                <Icon name={item.icon} size={20} />
-              </ListItem.Part>
-              <ListItem.Part middle containerStyle={styles.border}>
-                <Text>{item.title}</Text>
-              </ListItem.Part>
-            </ListItem>
-          )}
-        />
-      </Card>
-      <View centerH>
-        <Logo size="small" />
-      </View>
+
+      <FlatList
+        data={menuItems}
+        keyExtractor={item => item.key}
+        renderItem={({item}) => (
+          <ListItem
+            height={48}
+            onPress={() => handlePress(item.key)}
+            paddingH-12>
+            <ListItem.Part left>
+              <Icon name={item.icon} size={20} />
+            </ListItem.Part>
+            <ListItem.Part middle containerStyle={styles.border}>
+              <Text>{item.title}</Text>
+            </ListItem.Part>
+          </ListItem>
+        )}
+      />
+
       <BottomSheet
         snapPoints={['40%']}
         visible={bottomSheetOpen}
@@ -108,6 +107,9 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: Colors.grey50,
+  },
+  flatList: {
+    flexGrow: 1,
   },
 });
 

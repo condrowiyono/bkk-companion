@@ -47,7 +47,7 @@ const Profile = () => {
   }, [data?.data]);
 
   return (
-    <View>
+    <View flexG>
       <Card borderRadius={0} centerH>
         <Avatar
           backgroundColor={Colors.primary}
@@ -59,18 +59,16 @@ const Profile = () => {
           {!isLoading ? `NIK : ${formatEmptyValue(data?.data?.NIK)}` : '-'}
         </Text>
       </Card>
-      <Card borderRadius={0}>
-        <FlatList
-          data={profile}
-          keyExtractor={item => item.label}
-          renderItem={({item}) => (
-            <View height={48} row spread>
-              <Text>{item.label}</Text>
-              <Text style={styles.label}>{item.content}</Text>
-            </View>
-          )}
-        />
-      </Card>
+      <FlatList
+        data={profile}
+        keyExtractor={item => item.label}
+        renderItem={({item}) => (
+          <View height={48} row spread paddingH-12>
+            <Text>{item.label}</Text>
+            <Text style={styles.label}>{item.content}</Text>
+          </View>
+        )}
+      />
     </View>
   );
 };
