@@ -13,7 +13,9 @@ const ReactQueryProvider = ({children}: {children: React.ReactNode}) => {
           onError: error =>
             Toast.show({
               type: 'error',
-              text1: `Gagal mendapatkan data: ${error.message}`,
+              text1: error
+                ? `Gagal mendapatkan data: ${error.message}`
+                : 'Gagal mendapatkan data',
               visibilityTime: 3000,
             }),
         }),

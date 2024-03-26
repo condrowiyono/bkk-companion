@@ -5,6 +5,8 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import 'core-js/stable/atob';
+import {jwtDecode} from 'jwt-decode';
 import {User} from '../interfaces/user';
 import {getItem, setItem, removeItem} from '../utils/session';
 
@@ -75,6 +77,18 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
         setLoading(false);
       });
   }, []);
+
+  // check token expiration
+  useEffect(() => {
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      console.log(decoded);
+
+      if (decoded.exp * 1000 < Date.now()) {
+        logout();
+      }
+    }
+  }, [token]);
 
   return (
     <AuthContext.Provider
