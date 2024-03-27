@@ -14,6 +14,7 @@ import {configureDesignSystem} from './src/themes/config';
 
 import './src/libraries/net-info';
 import './src/libraries/dayjs';
+import './src/libraries/atob';
 import Toast from 'react-native-toast-message';
 
 configureDesignSystem();

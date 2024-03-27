@@ -7,6 +7,8 @@ import React, {
 } from 'react';
 import {User} from '../interfaces/user';
 import {getItem, setItem, removeItem} from '../utils/session';
+import {jwtDecode} from 'jwt-decode';
+import dayjs from 'dayjs';
 
 type UserAuthPayload = User;
 
@@ -67,9 +69,19 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
 
     getItem('token')
       .then(savedToken => {
+        const decoded = jwtDecode(savedToken || '') as any;
+
+        if (decoded.exp < dayjs().unix()) {
+          logout();
+          return;
+        }
+
         if (savedToken) {
           setToken(savedToken);
         }
+      })
+      .catch(() => {
+        console.log('No token found');
       })
       .finally(() => {
         setLoading(false);
