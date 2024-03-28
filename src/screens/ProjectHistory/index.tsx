@@ -13,8 +13,10 @@ import {fetcher} from '../../utils/fetcher';
 import {formatDate} from '../../utils/date';
 
 import Item from './components/Item';
+import {useAuth} from '../../contexts/auth';
 
 const ProjectHistory = () => {
+  const {userID} = useAuth();
   const navigation = useNavigation<NavigationProp>();
   const scrollRef = useRef<FlatList<Project> | null>(null);
   useScrollToTop(scrollRef);
@@ -27,7 +29,7 @@ const ProjectHistory = () => {
     refetch,
     isSuccess,
   } = useQuery({
-    queryKey: ['projects_history'],
+    queryKey: ['projects_history', userID],
     queryFn: () => fetcher<Project[]>({url: '/protected/projects-history'}),
   });
 

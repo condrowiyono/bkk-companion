@@ -11,4 +11,5 @@ export type LoginResponse = {
   NIK?: string;
   refresh_token?: string;
   user?: User | null;
+  employe_id?: string;
 };

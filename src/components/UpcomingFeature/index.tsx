@@ -2,15 +2,15 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Text, View} from 'react-native-ui-lib';
 
-const Empty = () => {
+const UpcomingFeature = () => {
   return (
     <View centerH centerV flex>
-      <Icon name="folder-open" size={64} />
+      <Icon name="bulb" size={64} />
       <Text center marginT-16>
-        Tidak ada data
+        Fitur ini akan segera hadir
       </Text>
     </View>
   );
 };
 
-export default Empty;
+export default UpcomingFeature;

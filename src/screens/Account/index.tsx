@@ -27,12 +27,12 @@ const menuItems = [
 ];
 
 const Account = () => {
-  const {logout} = useAuth();
+  const {logout, userID} = useAuth();
   const navigation = useNavigation<NavigationProp>();
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
   const {data, isLoading} = useQuery({
-    queryKey: ['profile'],
+    queryKey: ['profile', userID],
     queryFn: () => fetcher<User>({url: '/protected/profile'}),
   });
 

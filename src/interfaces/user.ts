@@ -6,4 +6,5 @@ export type User = {
   kdJabatan?: string;
   email?: string;
   notelp?: string;
+  employe_id?: string;
 };

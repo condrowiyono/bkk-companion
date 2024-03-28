@@ -4,7 +4,7 @@ import {Button, Image, View} from 'react-native-ui-lib';
 import {NavigationProp} from '../../navigations/types';
 import {Dimensions} from 'react-native';
 
-function SplashScreen() {
+function Onboarding() {
   const navigation = useNavigation<NavigationProp>();
   return (
     <View
@@ -34,4 +34,4 @@ function SplashScreen() {
   );
 }
 
-export default SplashScreen;
+export default Onboarding;

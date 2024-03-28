@@ -27,7 +27,7 @@ const ItemTab = (props: DetailProps) => {
             backgroundColor: index % 2 === 0 ? Colors.grey70 : 'transparent',
           }}>
           <ListItem.Part middle>
-            <View>
+            <View marginR-8>
               <View row>
                 <Text text90M>{item.QTY}</Text>
                 <Text text90M>{' x '}</Text>

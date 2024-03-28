@@ -6,10 +6,12 @@ import {useQuery} from '@tanstack/react-query';
 import {getFirstAndLastNames, formatEmptyValue} from '../../utils/text';
 import {fetcher} from '../../utils/fetcher';
 import {User} from '../../interfaces/user';
+import {useAuth} from '../../contexts/auth';
 
 const Profile = () => {
+  const {userID} = useAuth();
   const {data, isLoading} = useQuery({
-    queryKey: ['profile'],
+    queryKey: ['profile', userID],
     queryFn: () => fetcher<User>({url: '/protected/profile'}),
   });
 

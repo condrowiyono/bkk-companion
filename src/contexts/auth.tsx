@@ -14,10 +14,11 @@ type UserAuthPayload = User;
 
 type AuthContextType = {
   user: UserAuthPayload;
+  userID: string;
   token: string;
   isAuthentiacated: boolean;
   isLoading: boolean;
-  login: (token: string) => void;
+  login: (token: string, userID: string) => void;
   updateProfile: (user: UserAuthPayload) => void;
   logout: () => void;
 };
@@ -27,9 +28,10 @@ const AuthContext = createContext<AuthContextType>({
     idUser: '',
     email: '',
   },
+  userID: '',
   token: '',
   isLoading: true,
-  isAuthentiacated: false,
+  isAuthentiacated: true,
   login: () => {},
   updateProfile: () => {},
   logout: () => {},
@@ -42,21 +44,27 @@ export const useAuth = () => {
 export const AuthProvider = ({children}: {children: ReactNode}) => {
   const [user, setUser] = useState<UserAuthPayload>({idUser: '', email: ''});
   const [token, setToken] = useState('');
+  const [userID, setUserID] = useState('');
   const [isLoading, setLoading] = useState(true);
 
   const isAuthentiacated = token !== '';
 
-  const login = (tokenPayload: string) => {
+  const login = (tokenPayload: string, userIDPayload: string) => {
     setToken(tokenPayload);
+    setUserID(userIDPayload);
+
     setItem('token', tokenPayload);
+    setItem('userID', userIDPayload);
   };
 
   const logout = () => {
     setUser({email: '', idUser: ''});
     setToken('');
+    setUserID('');
 
     removeItem('token');
     removeItem('user');
+    removeItem('userID');
   };
 
   const updateProfile = (userPayload: UserAuthPayload) => {
@@ -70,7 +78,6 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
     getItem('token')
       .then(savedToken => {
         const decoded = jwtDecode(savedToken || '') as any;
-
         if (decoded.exp < dayjs().unix()) {
           logout();
           return;
@@ -78,6 +85,7 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
 
         if (savedToken) {
           setToken(savedToken);
+          setUserID(decoded.employe_id);
         }
       })
       .catch(() => {
@@ -95,6 +103,7 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
         token,
         isLoading,
         isAuthentiacated,
+        userID,
         login,
         logout,
         updateProfile,

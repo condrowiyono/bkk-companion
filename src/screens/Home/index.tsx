@@ -2,23 +2,19 @@ import React from 'react';
 import {useQuery} from '@tanstack/react-query';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {ScrollView, StyleSheet} from 'react-native';
-import {Card, Colors, Text} from 'react-native-ui-lib';
+import {FlatList, ScrollView, StyleSheet} from 'react-native';
+import {Colors, ListItem, Text, View} from 'react-native-ui-lib';
 
-import {PressableScale} from '../../components/PressableScale';
 import {Project} from '../../interfaces/project';
 import {NavigationProp} from '../../navigations/types';
 import {fetcher} from '../../utils/fetcher';
-
-export type HomeItem = {
-  id: number;
-  title: string;
-  subtitle: string;
-  bgIcon: string;
-  screen?: string;
-};
+import TouchableCard from '../../components/TouchableCard';
+import {useAuth} from '../../contexts/auth';
+import {formatDate} from '../../utils/date';
+import {PreOrder} from '../../interfaces/preOrder';
 
 const Home = () => {
+  const {userID} = useAuth();
   const navigation = useNavigation<NavigationProp>();
 
   const handleNavigate = (screen: string) => {
@@ -26,68 +22,126 @@ const Home = () => {
   };
 
   const {data: projects} = useQuery({
-    queryKey: ['projects'],
+    queryKey: ['projects', userID],
     queryFn: () => fetcher<Project[]>({url: '/protected/projects'}),
   });
-  const {data: histories} = useQuery({
-    queryKey: ['projects-history'],
-    queryFn: () => fetcher<Project[]>({url: '/protected/projects-history'}),
+
+  const {data: preOrders} = useQuery({
+    queryKey: ['po', userID],
+    queryFn: () => fetcher<PreOrder[]>({url: '/protected/po'}),
   });
 
   return (
     <ScrollView>
-      <PressableScale
-        style={[styles.card, {marginTop: 16}]}
-        onPress={() => handleNavigate('NeedAction')}>
-        <Card>
-          <Text text60>{'Perlu Tindakan'}</Text>
-          <Text grey30>{'Jumlah persetujuan yang diperlukan'}</Text>
-          <Text text30 $textPrimary>
-            {projects?.data?.length ?? undefined}
-          </Text>
-          <Text text70 $textPrimary>
-            Klik untuk melihat lebih lanjut
-          </Text>
-          <Icon
-            name={'rocket-outline'}
-            size={96}
-            color={Colors.grey60}
-            style={styles.bgIcon}
-          />
-        </Card>
-      </PressableScale>
-      <PressableScale
-        style={styles.card}
-        onPress={() => handleNavigate('History')}>
-        <Card>
-          <Text text60>{'Riwayat Persetujuan'}</Text>
-          <Text grey30>{'Riwayat persetujuan yang sudah dilakukan'}</Text>
-          <Text text30 $textPrimary>
-            {histories?.data?.length ?? undefined}
-          </Text>
-          <Text text70 $textPrimary>
-            Klik untuk melihat lebih lanjut
-          </Text>
-          <Icon
-            name={'receipt-outline'}
-            size={96}
-            color={Colors.grey60}
-            style={styles.bgIcon}
-          />
-        </Card>
-      </PressableScale>
+      <View row marginV-16 gap-8 paddingH-16>
+        <Text text40>{formatDate(new Date(), 'dddd')}</Text>
+        <Text text40BL>{formatDate(new Date(), 'DD MMMM YYYY')}</Text>
+      </View>
+      <View flexG>
+        <Text text60BL marginH-16 marginV-4>
+          Perlu Tindakan
+        </Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <TouchableCard
+            onPress={() => handleNavigate('NeedAction')}
+            style={{width: 240}}>
+            <View padding-12>
+              <Text text60>{'Budget'}</Text>
+              <Text grey30>{'Persetujuan yang diperlukan'}</Text>
+              <Text text30 $textPrimary>
+                {projects?.data?.length ?? undefined}
+              </Text>
+              <Icon
+                name={'wallet-outline'}
+                size={96}
+                color={Colors.grey60}
+                style={styles.bgIcon}
+              />
+            </View>
+          </TouchableCard>
+          <TouchableCard
+            onPress={() => handleNavigate('NeedAction')}
+            style={{width: 240}}>
+            <View padding-12>
+              <Text text60>{'Pre Order'}</Text>
+              <Text grey30>{'Persetujuan yang diperlukan'}</Text>
+              <Text text30 $textPrimary>
+                {preOrders?.data?.length ?? undefined}
+              </Text>
+              <Icon
+                name={'receipt-outline'}
+                size={96}
+                color={Colors.grey60}
+                style={styles.bgIcon}
+              />
+            </View>
+          </TouchableCard>
+        </ScrollView>
+      </View>
+
+      <View>
+        <Text text60BL marginH-16 marginV-4>
+          Daftar Persetujuan
+        </Text>
+        <FlatList
+          scrollEnabled={false}
+          data={projects?.data}
+          keyExtractor={item => item.kode_prod}
+          renderItem={({item}) => (
+            <ListItem
+              paddingH-16
+              onPress={() =>
+                navigation.navigate('ProjectDetail', {taskId: item.kode_prod})
+              }>
+              <ListItem.Part
+                middle
+                containerStyle={{
+                  borderBottomWidth: StyleSheet.hairlineWidth,
+                  borderColor: Colors.grey50,
+                }}>
+                <View>
+                  <Text numberOfLines={1}>{item.kode_prod}</Text>
+                  <Text numberOfLines={1}>{item.nama_prod}</Text>
+                </View>
+              </ListItem.Part>
+            </ListItem>
+          )}
+        />
+        <FlatList
+          scrollEnabled={false}
+          data={preOrders?.data}
+          keyExtractor={item => item.PONumber2}
+          renderItem={({item}) => (
+            <ListItem
+              paddingH-12
+              onPress={() =>
+                navigation.navigate('PreOrderDetail', {taskId: item.PONumber2})
+              }>
+              <ListItem.Part
+                middle
+                containerStyle={{
+                  borderBottomWidth: StyleSheet.hairlineWidth,
+                  borderColor: Colors.grey50,
+                }}>
+                <View>
+                  <Text numberOfLines={1}>{item.PONumber}</Text>
+                  <Text numberOfLines={1}>{item.VendorName}</Text>
+                </View>
+              </ListItem.Part>
+            </ListItem>
+          )}
+        />
+      </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    marginHorizontal: 16,
-  },
   bgIcon: {
     position: 'absolute',
     bottom: 0,
     right: 0,
+    zIndex: -1,
   },
 });
 export default Home;

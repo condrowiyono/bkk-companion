@@ -12,8 +12,10 @@ import {formatDate} from '../../utils/date';
 import {fetcher} from '../../utils/fetcher';
 
 import Item from './components/Item';
+import {useAuth} from '../../contexts/auth';
 
 const PreOrderSreen = () => {
+  const {userID} = useAuth();
   const navigation = useNavigation<NavigationProp>();
   const scrollRef = useRef<FlatList<PreOrder> | null>(null);
   useScrollToTop(scrollRef);
@@ -26,7 +28,7 @@ const PreOrderSreen = () => {
     refetch,
     isSuccess,
   } = useQuery({
-    queryKey: ['po'],
+    queryKey: ['po', userID],
     queryFn: () => fetcher<PreOrder[]>({url: '/protected/po'}),
   });
 

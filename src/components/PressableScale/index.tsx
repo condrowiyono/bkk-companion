@@ -2,8 +2,8 @@ import React, {useCallback, useMemo} from 'react';
 import {
   GestureResponderEvent,
   TouchableWithoutFeedbackProps,
-  TouchableWithoutFeedback,
   View,
+  TouchableNativeFeedback,
 } from 'react-native';
 import Reanimated, {
   useAnimatedStyle,
@@ -30,7 +30,7 @@ export interface PressableScaleProps
 }
 
 const ReanimatedTouchableWithoutFeedback = Reanimated.createAnimatedComponent(
-  TouchableWithoutFeedback,
+  TouchableNativeFeedback,
 );
 
 /**

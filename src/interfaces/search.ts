@@ -1,5 +1,5 @@
 export type SearchResult = {
-  value: string;
-  label: string;
-  type: 'projects' | 'projects-history' | 'po' | 'po-history';
+  title: string;
+  id: string;
+  type: 'project' | 'preOrder';
 };

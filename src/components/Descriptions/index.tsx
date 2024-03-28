@@ -32,7 +32,7 @@ const Descriptions = (props: DescriptionsProps) => {
           <Text text80 style={styles.label}>
             {item.label}:
           </Text>
-          <Text flex numberOfLines={3} text80H>
+          <Text flex numberOfLines={3} text80H selectable>
             {item.value}
           </Text>
         </View>

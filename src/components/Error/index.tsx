@@ -2,15 +2,15 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Text, View} from 'react-native-ui-lib';
 
-const Empty = () => {
+const Error = () => {
   return (
     <View centerH centerV flex>
-      <Icon name="folder-open" size={64} />
+      <Icon name="alert-circle-outline" size={64} />
       <Text center marginT-16>
-        Tidak ada data
+        Terjadi Kesalahan
       </Text>
     </View>
   );
 };
 
-export default Empty;
+export default Error;

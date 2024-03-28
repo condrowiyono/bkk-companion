@@ -25,6 +25,8 @@ import {
   type UpdateStatusPayload,
   type UpdateStatusResponse,
 } from '../../interfaces/project';
+import Error from '../../components/Error';
+import Laoding from '../../components/Loading';
 
 import Detail from './components/Detail';
 import Approvals from './components/Approvals';
@@ -53,7 +55,7 @@ const ProjectDetail = () => {
     data: undefined,
   });
 
-  const {data, isLoading, isFetching, refetch} = useQuery({
+  const {data, isLoading, isFetching, isError, refetch} = useQuery({
     queryKey: ['project', taskId],
     queryFn: () => fetcher<Project>({url: `/protected/projects/${taskId}`}),
   });
@@ -103,19 +105,21 @@ const ProjectDetail = () => {
   };
 
   if (isLoading || isFetching) {
-    return (
-      <View flex center>
-        <Text>Memuat...</Text>
-      </View>
-    );
+    return <Laoding />;
+  }
+
+  if (isError) {
+    return <Error />;
   }
 
   return (
     <>
       <View backgroundColor={Colors.white} padding-12 gap-12>
         <View gap-4>
-          <Text grey30>{data?.data?.kode_prod}</Text>
-          <Text numberOfLines={3} text60BL>
+          <Text grey30 selectable>
+            {data?.data?.kode_prod}
+          </Text>
+          <Text text60BL selectable>
             {data?.data?.nama_prod}
           </Text>
           <ScrollView horizontal contentContainerStyle={{gap: 16}}>

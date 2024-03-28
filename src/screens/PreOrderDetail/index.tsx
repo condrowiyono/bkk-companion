@@ -25,6 +25,9 @@ import {
   type UpdateStatusResponse,
 } from '../../interfaces/preOrder';
 
+import Error from '../../components/Error';
+import Laoding from '../../components/Loading';
+
 import TabBarComponent from './components/TabBarComponent';
 import {formatDate} from '../../utils/date';
 import Detail from './components/Detail';
@@ -103,29 +106,21 @@ const PreOrderDetail = () => {
   };
 
   if (isLoading || isFetching) {
-    return (
-      <View flex center>
-        <Text>Memuat...</Text>
-      </View>
-    );
+    return <Laoding />;
   }
 
   if (isError) {
-    return (
-      <View flex center>
-        <Text>Terjadi kesalahan</Text>
-      </View>
-    );
+    return <Error />;
   }
 
   return (
     <>
       <View backgroundColor={Colors.white} padding-12 gap-12>
         <View gap-4>
-          <Text numberOfLines={3} text80BL>
+          <Text numberOfLines={3} text80BL selectable>
             {data?.data?.VendorName} - {data?.data?.VendorNo}
           </Text>
-          <Text numberOfLines={3} text60BL>
+          <Text text60BL selectable>
             {data?.data?.PONumber}
           </Text>
           <Text grey30>{formatDate(data?.data?.PODate, 'DD MMMM YYYY')}</Text>

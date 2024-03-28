@@ -1,14 +1,14 @@
 import React, {useMemo, useState} from 'react';
 import {TabView, SceneMap} from 'react-native-tab-view';
-import {Text} from 'react-native-ui-lib';
 import Projects from '../Projects';
 import TabBarComponent from './components/TabBarComponent';
 import PreOrderSreen from '../PreOrder';
+import UpcomingFeature from '../../components/UpcomingFeature';
 
 const renderScene = SceneMap({
   first: Projects,
   second: PreOrderSreen,
-  third: () => <Text center> Akan Hadir </Text>,
+  third: UpcomingFeature,
 });
 
 const NeedAction = () => {
