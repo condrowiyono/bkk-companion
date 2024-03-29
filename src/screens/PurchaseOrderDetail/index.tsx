@@ -19,11 +19,11 @@ import {
 import {StackList} from '../../navigations/types';
 import {fetcher} from '../../utils/fetcher';
 import {
-  type PreOrder,
+  type PurchaseOrder,
   ApprovalStatus,
   type UpdateStatusPayload,
   type UpdateStatusResponse,
-} from '../../interfaces/preOrder';
+} from '../../interfaces/purchaseOrder';
 
 import Error from '../../components/Error';
 import Laoding from '../../components/Loading';
@@ -41,11 +41,11 @@ const renderScene = SceneMap({
   third: Approval,
 });
 
-const PreOrderDetail = () => {
+const PurchaseOrderDetail = () => {
   const queryClient = useQueryClient();
   const {
     params: {taskId},
-  } = useRoute<RouteProp<StackList, 'PreOrderDetail'>>();
+  } = useRoute<RouteProp<StackList, 'PurchaseOrderDetail'>>();
 
   const [index, setIndex] = useState(0);
   const [dialog, setDialog] = useState<{
@@ -58,7 +58,7 @@ const PreOrderDetail = () => {
 
   const {data, isLoading, isFetching, refetch, isError} = useQuery({
     queryKey: ['po', taskId],
-    queryFn: () => fetcher<PreOrder>({url: `/protected/po/${taskId}`}),
+    queryFn: () => fetcher<PurchaseOrder>({url: `/protected/po/${taskId}`}),
   });
 
   const {mutate: updateStatus, isPending} = useMutation<
@@ -258,4 +258,4 @@ const styles = StyleSheet.create({
     gap: 4,
   },
 });
-export default PreOrderDetail;
+export default PurchaseOrderDetail;

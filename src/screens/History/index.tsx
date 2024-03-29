@@ -2,12 +2,12 @@ import React, {useMemo, useState} from 'react';
 import {TabView, SceneMap} from 'react-native-tab-view';
 import TabBarComponent from './components/TabBarComponent';
 import ProjectHistory from '../ProjectHistory';
-import PreOrderHistory from '../PreOrderHistory';
+import PurchaseOrderHistory from '../PurchaseOrderHistory';
 import UpcomingFeature from '../../components/UpcomingFeature';
 
 const renderScene = SceneMap({
   first: ProjectHistory,
-  second: PreOrderHistory,
+  second: PurchaseOrderHistory,
   third: UpcomingFeature,
 });
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import {Colors, ListItem, Text, View} from 'react-native-ui-lib';
 
-import {PreOrder} from '../../../interfaces/preOrder';
+import {PurchaseOrder} from '../../../interfaces/purchaseOrder';
 import {FlatList} from 'react-native';
 import {formatCurrency} from '../../../utils/currency';
 
 type DetailProps = {
-  route: {data?: PreOrder};
+  route: {data?: PurchaseOrder};
 };
 
 const ItemTab = (props: DetailProps) => {

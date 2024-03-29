@@ -4,7 +4,7 @@ export enum ApprovalStatus {
   REJECTED,
 }
 
-export type PreOrder = {
+export type PurchaseOrder = {
   statuss: number;
   pesan: string;
   divisi: string;

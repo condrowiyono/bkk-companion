@@ -2,12 +2,12 @@ import React from 'react';
 import {View} from 'react-native-ui-lib';
 
 import Descriptions from '../../../components/Descriptions';
-import {PreOrder} from '../../../interfaces/preOrder';
+import {PurchaseOrder} from '../../../interfaces/purchaseOrder';
 import {formatDate} from '../../../utils/date';
 import {formatCurrency} from '../../../utils/currency';
 
 type DetailProps = {
-  route: {data?: PreOrder};
+  route: {data?: PurchaseOrder};
 };
 
 const Detail = (props: DetailProps) => {

@@ -10,7 +10,7 @@ import SplashScreen from '../screens/SplashScreen';
 import Onboarding from '../screens/Onboarding';
 import ProjectDetail from '../screens/ProjectDetail';
 import Profile from '../screens/Profile';
-import PreOrderDetail from '../screens/PreOrderDetail';
+import PurchaseOrderDetail from '../screens/PurchaseOrderDetail';
 import NeedActionSearch from '../screens/NeedActionSearch';
 import HistorySearch from '../screens/HistorySearch';
 
@@ -81,8 +81,8 @@ const StackNavigator = () => {
             options={{title: 'Rincian Budget', headerBackTitleVisible: false}}
           />
           <Stack.Screen
-            name="PreOrderDetail"
-            component={PreOrderDetail}
+            name="PurchaseOrderDetail"
+            component={PurchaseOrderDetail}
             options={{title: 'Rincian PO', headerBackTitleVisible: false}}
           />
           <Stack.Screen

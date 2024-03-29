@@ -7,7 +7,7 @@ export type StackList = {
   Onboarding: undefined;
   TabNavigator: {screen?: string; screenOption?: {tab: number}} | undefined;
   ProjectDetail: {taskId: string};
-  PreOrderDetail: {taskId: string};
+  PurchaseOrderDetail: {taskId: string};
   SplashScreen: undefined;
   NeedActionSearch: undefined;
   HistorySearch: undefined;

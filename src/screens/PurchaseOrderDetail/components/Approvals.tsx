@@ -1,10 +1,10 @@
 import React from 'react';
 import {View} from 'react-native-ui-lib';
 import Descriptions from '../../../components/Descriptions';
-import {ApprovalStatus, PreOrder} from '../../../interfaces/preOrder';
+import {ApprovalStatus, PurchaseOrder} from '../../../interfaces/purchaseOrder';
 
 type DetailProps = {
-  route: {data?: PreOrder};
+  route: {data?: PurchaseOrder};
 };
 
 const formatApproval = (approval: string | null) => {

@@ -11,7 +11,7 @@ import {fetcher} from '../../utils/fetcher';
 import TouchableCard from '../../components/TouchableCard';
 import {useAuth} from '../../contexts/auth';
 import {formatDate} from '../../utils/date';
-import {PreOrder} from '../../interfaces/preOrder';
+import {PurchaseOrder} from '../../interfaces/purchaseOrder';
 
 const Home = () => {
   const {userID} = useAuth();
@@ -26,9 +26,9 @@ const Home = () => {
     queryFn: () => fetcher<Project[]>({url: '/protected/projects'}),
   });
 
-  const {data: preOrders} = useQuery({
+  const {data: purchaseOrders} = useQuery({
     queryKey: ['po', userID],
-    queryFn: () => fetcher<PreOrder[]>({url: '/protected/po'}),
+    queryFn: () => fetcher<PurchaseOrder[]>({url: '/protected/po'}),
   });
 
   return (
@@ -66,7 +66,7 @@ const Home = () => {
               <Text text60>{'Purchase Order'}</Text>
               <Text grey30>{'Persetujuan yang diperlukan'}</Text>
               <Text text30 $textPrimary>
-                {preOrders?.data?.length ?? undefined}
+                {purchaseOrders?.data?.length ?? undefined}
               </Text>
               <Icon
                 name={'receipt-outline'}
@@ -109,13 +109,15 @@ const Home = () => {
         />
         <FlatList
           scrollEnabled={false}
-          data={preOrders?.data}
+          data={purchaseOrders?.data}
           keyExtractor={item => item.PONumber2}
           renderItem={({item}) => (
             <ListItem
               paddingH-12
               onPress={() =>
-                navigation.navigate('PreOrderDetail', {taskId: item.PONumber2})
+                navigation.navigate('PurchaseOrderDetail', {
+                  taskId: item.PONumber2,
+                })
               }>
               <ListItem.Part
                 middle

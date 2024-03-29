@@ -50,8 +50,8 @@ const NeedActionSearch = () => {
   const handleNavigate = (item: SearchResult) => {
     if (item.type === 'project') {
       navigation.navigate('ProjectDetail', {taskId: item.id});
-    } else if (item.type === 'preOrder') {
-      navigation.navigate('PreOrderDetail', {taskId: item.id});
+    } else if (item.type === 'purchaseOrder') {
+      navigation.navigate('PurchaseOrderDetail', {taskId: item.id});
     }
   };
 

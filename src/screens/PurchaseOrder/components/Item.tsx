@@ -1,14 +1,14 @@
 import * as React from 'react';
 
 import {View, Text} from 'react-native-ui-lib';
-import {PreOrder} from '../../../interfaces/preOrder';
+import {PurchaseOrder} from '../../../interfaces/purchaseOrder';
 import {formatDate} from '../../../utils/date';
 import TouchableCard from '../../../components/TouchableCard';
 
 type Props = {
-  item: PreOrder;
+  item: PurchaseOrder;
   index: number;
-  onPress?: (item: PreOrder) => void;
+  onPress?: (item: PurchaseOrder) => void;
 };
 
 const Item = (props: Props) => {
