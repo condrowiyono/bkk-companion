@@ -63,7 +63,7 @@ const Home = () => {
             onPress={() => handleNavigate('NeedAction')}
             style={{width: 240}}>
             <View padding-12>
-              <Text text60>{'Pre Order'}</Text>
+              <Text text60>{'Purchase Order'}</Text>
               <Text grey30>{'Persetujuan yang diperlukan'}</Text>
               <Text text30 $textPrimary>
                 {preOrders?.data?.length ?? undefined}

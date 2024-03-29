@@ -17,7 +17,7 @@ import TouchableCard from '../../components/TouchableCard';
 
 const filterOptions = [
   {value: 'project', label: 'Proyek Budget'},
-  {value: 'preOrder', label: 'Pre Order'},
+  {value: 'purchaseOrder', label: 'Purchase Order'},
 ];
 
 const NeedActionSearch = () => {
