@@ -32,7 +32,7 @@ const Home = () => {
   });
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       <View row marginV-16 gap-8 paddingH-16>
         <Text text40>{formatDate(new Date(), 'dddd')}</Text>
         <Text text40BL>{formatDate(new Date(), 'DD MMMM YYYY')}</Text>
@@ -137,6 +137,9 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+  },
   bgIcon: {
     position: 'absolute',
     bottom: 0,
