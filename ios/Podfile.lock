@@ -503,6 +503,8 @@ PODS:
     - React
   - RNCAsyncStorage (1.21.0):
     - React-Core
+  - RNCClipboard (1.13.2):
+    - React-Core
   - RNCPicker (2.6.1):
     - React-Core
   - RNDateTimePicker (7.6.2):
@@ -596,6 +598,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeUiLib (from `../node_modules/react-native-ui-lib`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -714,6 +717,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-ui-lib"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCClipboard:
+    :path: "../node_modules/@react-native-clipboard/clipboard"
   RNCPicker:
     :path: "../node_modules/@react-native-picker/picker"
   RNDateTimePicker:
@@ -788,6 +793,7 @@ SPEC CHECKSUMS:
   ReactCommon: 38824bfffaf4c51fbe03a2730b4fd874ef34d67b
   ReactNativeUiLib: dcb4c9faedde24142aad7032ae96469c6a84bd70
   RNCAsyncStorage: 618d03a5f52fbccb3d7010076bc54712844c18ef
+  RNCClipboard: 60fed4b71560d7bfe40e9d35dea9762b024da86d
   RNCPicker: b18aaf30df596e9b1738e7c1f9ee55402a229dca
   RNDateTimePicker: fc2e4f2795877d45e84d85659bebe627eba5c931
   RNGestureHandler: 7909c50383a18f0cb10ce1db7262b9a6da504c03
