@@ -116,12 +116,14 @@ const ProjectDetail = () => {
     <>
       <View backgroundColor={Colors.white} padding-12 gap-12>
         <View gap-4>
-          <Text grey30 selectable>
-            {data?.data?.kode_prod}
-          </Text>
-          <Text text60BL selectable>
-            {data?.data?.nama_prod}
-          </Text>
+          <View gap-8 marginB-8>
+            <Text grey30 selectable>
+              {data?.data?.kode_prod}
+            </Text>
+            <Text text60 selectable>
+              {data?.data?.nama_prod}
+            </Text>
+          </View>
           <ScrollView horizontal contentContainerStyle={{gap: 16}}>
             <View>
               <Text grey30 center text90L>
@@ -195,7 +197,7 @@ const ProjectDetail = () => {
             }}>
             <View flex row center>
               <Icon name="close" size={24} color={Colors.white} />
-              <Text text70 style={{fontWeight: 'bold'}} color={Colors.white}>
+              <Text text70M color={Colors.white}>
                 Tolak
               </Text>
             </View>
@@ -214,7 +216,7 @@ const ProjectDetail = () => {
             }}>
             <View flex row center>
               <Icon name="checkmark" size={24} color={Colors.white} />
-              <Text text70 style={{fontWeight: 'bold'}} color={Colors.white}>
+              <Text text70M color={Colors.white}>
                 Setujui
               </Text>
             </View>
@@ -226,7 +228,7 @@ const ProjectDetail = () => {
         onDismiss={() => setDialog({isVisible: false})}
         panDirection={PanningProvider.Directions.DOWN}>
         <Card>
-          <Text text60BL marginB-12>
+          <Text text60M marginB-12>
             Apakah Anda yakin?
           </Text>
           <Text text70>

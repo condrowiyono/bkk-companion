@@ -27,7 +27,9 @@ const TabBarComponent = (props: TabBarComponentProps) => {
             key={i}
             style={[styles.tabItem]}
             onPress={() => props.onChageIndex(i)}>
-            <Animated.Text style={[{opacity}, active && styles.text]}>
+            <Animated.Text
+              numberOfLines={1}
+              style={[{opacity}, active && styles.text]}>
               {route.title}
             </Animated.Text>
             {active && <View style={styles.bottomLine} />}

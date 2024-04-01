@@ -117,7 +117,7 @@ const PurchaseOrderDetail = () => {
     <>
       <View backgroundColor={Colors.white} padding-12 gap-12>
         <View gap-4>
-          <Text numberOfLines={3} text80BL selectable>
+          <Text numberOfLines={3} text80M selectable>
             {data?.data?.VendorName} - {data?.data?.VendorNo}
           </Text>
           <Text text60BL selectable>
@@ -178,7 +178,7 @@ const PurchaseOrderDetail = () => {
             }}>
             <View flex row center>
               <Icon name="close" size={24} color={Colors.white} />
-              <Text text70 style={{fontWeight: 'bold'}} color={Colors.white}>
+              <Text text70M color={Colors.white}>
                 Tolak
               </Text>
             </View>
@@ -197,7 +197,7 @@ const PurchaseOrderDetail = () => {
             }}>
             <View flex row center>
               <Icon name="checkmark" size={24} color={Colors.white} />
-              <Text text70 style={{fontWeight: 'bold'}} color={Colors.white}>
+              <Text text70M color={Colors.white}>
                 Setujui
               </Text>
             </View>
@@ -209,7 +209,7 @@ const PurchaseOrderDetail = () => {
         onDismiss={() => setDialog({isVisible: false})}
         panDirection={PanningProvider.Directions.DOWN}>
         <Card>
-          <Text text60BL marginB-12>
+          <Text text60M marginB-12>
             Apakah Anda yakin?
           </Text>
           <Text text70>

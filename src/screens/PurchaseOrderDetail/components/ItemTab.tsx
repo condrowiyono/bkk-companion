@@ -1,9 +1,11 @@
 import React from 'react';
 import {Colors, ListItem, Text, View} from 'react-native-ui-lib';
 
-import {PurchaseOrder} from '../../../interfaces/purchaseOrder';
+import {Item, PurchaseOrder} from '../../../interfaces/purchaseOrder';
 import {FlatList} from 'react-native';
 import {formatCurrency} from '../../../utils/currency';
+import Clipboard from '@react-native-clipboard/clipboard';
+import Toast from 'react-native-toast-message';
 
 type DetailProps = {
   route: {data?: PurchaseOrder};
@@ -11,6 +13,13 @@ type DetailProps = {
 
 const ItemTab = (props: DetailProps) => {
   const {data} = props.route;
+
+  const handleLongPress = (item: Item) => {
+    const text = `${item.item_code} - ${item.item_name} - ${item.QTY} x ${item.price}`;
+
+    Clipboard.setString(text);
+    Toast.show({type: 'success', text1: 'Text berhasil di-salin'});
+  };
 
   if (!data) {
     return null;
@@ -22,6 +31,7 @@ const ItemTab = (props: DetailProps) => {
       keyExtractor={item => `${item.item_code}-${item.kodeprod}`}
       renderItem={({item, index}) => (
         <ListItem
+          onLongPress={() => handleLongPress(item)}
           paddingH-12
           style={{
             backgroundColor: index % 2 === 0 ? Colors.grey70 : 'transparent',

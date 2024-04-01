@@ -20,7 +20,7 @@ const Item = (props: Props) => {
         <Text text80 numberOfLines={1} $textNeutral>
           {item.PONumber}
         </Text>
-        <Text numberOfLines={3} text70H>
+        <Text numberOfLines={3} text70M>
           {item.VendorNo} - {item.VendorName}
         </Text>
         <Text text90H numberOfLines={1} $textNeutral>

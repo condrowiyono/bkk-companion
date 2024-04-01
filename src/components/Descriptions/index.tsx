@@ -1,6 +1,8 @@
 import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import {Colors, Text, View} from 'react-native-ui-lib';
+import Clipboard from '@react-native-clipboard/clipboard';
+import Toast from 'react-native-toast-message';
 
 type DescriptionsItem = {
   index: number | string;
@@ -14,6 +16,16 @@ type DescriptionsProps = {
 
 const Descriptions = (props: DescriptionsProps) => {
   const {data} = props;
+
+  const handleLongPress = (value: string | null) => {
+    if (!value) {
+      return;
+    }
+
+    Clipboard.setString(value);
+    Toast.show({type: 'success', text1: 'Text berhasil di-salin'});
+  };
+
   if (!data) {
     return null;
   }
@@ -32,7 +44,12 @@ const Descriptions = (props: DescriptionsProps) => {
           <Text text80 style={styles.label}>
             {item.label}:
           </Text>
-          <Text flex numberOfLines={3} text80H selectable>
+          <Text
+            flex
+            numberOfLines={3}
+            text80M
+            selectable
+            onLongPress={() => handleLongPress(item.value)}>
             {item.value}
           </Text>
         </View>

@@ -35,18 +35,18 @@ const Home = () => {
     <ScrollView style={styles.container}>
       <View row marginV-16 gap-8 paddingH-16>
         <Text text40>{formatDate(new Date(), 'dddd')}</Text>
-        <Text text40BL>{formatDate(new Date(), 'DD MMMM YYYY')}</Text>
+        <Text text40L>{formatDate(new Date(), 'DD MMMM YYYY')}</Text>
       </View>
       <View flexG>
-        <Text text60BL marginH-16 marginV-4>
+        <Text text60M marginH-16 marginV-4>
           Perlu Tindakan
         </Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <TouchableCard
             onPress={() => handleNavigate('NeedAction')}
-            style={{width: 240}}>
+            style={styles.card}>
             <View padding-12>
-              <Text text60>{'Budget'}</Text>
+              <Text text60M>{'Budget'}</Text>
               <Text grey30>{'Persetujuan yang diperlukan'}</Text>
               <Text text30 $textPrimary>
                 {projects?.data?.length ?? undefined}
@@ -61,9 +61,9 @@ const Home = () => {
           </TouchableCard>
           <TouchableCard
             onPress={() => handleNavigate('NeedAction')}
-            style={{width: 240}}>
+            style={styles.card}>
             <View padding-12>
-              <Text text60>{'Purchase Order'}</Text>
+              <Text text60M>{'Purchase Order'}</Text>
               <Text grey30>{'Persetujuan yang diperlukan'}</Text>
               <Text text30 $textPrimary>
                 {purchaseOrders?.data?.length ?? undefined}
@@ -80,7 +80,7 @@ const Home = () => {
       </View>
 
       <View>
-        <Text text60BL marginH-16 marginV-4>
+        <Text text60M marginH-16 marginV-4>
           Daftar Persetujuan
         </Text>
         <FlatList
@@ -141,6 +141,10 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
+  },
+  card: {
+    width: 240,
+    height: 120,
   },
   bgIcon: {
     position: 'absolute',

@@ -28,7 +28,7 @@ const Login = () => {
   return (
     <View padding-12>
       <View marginV-52 center>
-        <Text center text40>
+        <Text center text40L>
           Login
         </Text>
       </View>

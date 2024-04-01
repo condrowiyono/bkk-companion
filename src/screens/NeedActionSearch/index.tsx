@@ -111,7 +111,7 @@ const NeedActionSearch = () => {
                 <Text text80 numberOfLines={1} $textNeutral>
                   {item.id}
                 </Text>
-                <Text numberOfLines={3} text70H>
+                <Text numberOfLines={3} text70M>
                   {item.title}
                 </Text>
               </View>
