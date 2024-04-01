@@ -114,8 +114,8 @@ const ProjectDetail = () => {
 
   return (
     <>
-      <View backgroundColor={Colors.white} padding-12 gap-12>
-        <View gap-4>
+      <View backgroundColor={Colors.white}>
+        <View gap-4 padding-12>
           <View gap-8 marginB-8>
             <Text grey30 selectable>
               {data?.data?.kode_prod}
@@ -124,27 +124,29 @@ const ProjectDetail = () => {
               {data?.data?.nama_prod}
             </Text>
           </View>
-          <ScrollView horizontal contentContainerStyle={{gap: 16}}>
-            <View>
-              <Text grey30 center text90L>
-                Kepala Divisi PMO
-              </Text>
-              <Status status={data?.data?.approval_kuu} />
-            </View>
-            <View>
-              <Text grey30 center>
-                Direktur Operasional
-              </Text>
-              <Status status={data?.data?.approval_dirOp} />
-            </View>
-            <View>
-              <Text grey30 center>
-                Direktur Keuangan
-              </Text>
-              <Status status={data?.data?.approval_dirkeu} />
-            </View>
-          </ScrollView>
         </View>
+        <ScrollView
+          horizontal
+          contentContainerStyle={{gap: 12, paddingHorizontal: 12}}>
+          <View>
+            <Text grey30 center text90L>
+              Kepala Divisi PMO
+            </Text>
+            <Status status={data?.data?.approval_kuu} />
+          </View>
+          <View>
+            <Text grey30 center>
+              Direktur Operasional
+            </Text>
+            <Status status={data?.data?.approval_dirOp} />
+          </View>
+          <View>
+            <Text grey30 center>
+              Direktur Keuangan
+            </Text>
+            <Status status={data?.data?.approval_dirkeu} />
+          </View>
+        </ScrollView>
       </View>
 
       <TabView

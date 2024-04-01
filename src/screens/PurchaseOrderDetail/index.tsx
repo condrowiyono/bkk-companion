@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {StyleSheet, TouchableNativeFeedback} from 'react-native';
+import {ScrollView, StyleSheet, TouchableNativeFeedback} from 'react-native';
 import {useRoute, RouteProp} from '@react-navigation/native';
 import {MenuView, NativeActionEvent} from '@react-native-menu/menu';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
@@ -34,6 +34,7 @@ import Detail from './components/Detail';
 import {formatCurrency} from '../../utils/currency';
 import ItemTab from './components/ItemTab';
 import Approval from './components/Approvals';
+import Status from './components/Status';
 
 const renderScene = SceneMap({
   first: Detail,
@@ -115,16 +116,40 @@ const PurchaseOrderDetail = () => {
 
   return (
     <>
-      <View backgroundColor={Colors.white} padding-12 gap-12>
-        <View gap-4>
-          <Text numberOfLines={3} text80M selectable>
-            {data?.data?.VendorName} - {data?.data?.VendorNo}
-          </Text>
-          <Text text60BL selectable>
-            {data?.data?.PONumber}
-          </Text>
-          <Text grey30>{formatDate(data?.data?.PODate, 'DD MMMM YYYY')}</Text>
+      <View backgroundColor={Colors.white}>
+        <View gap-4 padding-12>
+          <View gap-8 marginB-8>
+            <Text numberOfLines={3} text80M selectable>
+              {data?.data?.VendorName} - {data?.data?.VendorNo}
+            </Text>
+            <Text text60BL selectable>
+              {data?.data?.PONumber}
+            </Text>
+            <Text grey30>{formatDate(data?.data?.PODate, 'DD MMMM YYYY')}</Text>
+          </View>
         </View>
+        <ScrollView
+          horizontal
+          contentContainerStyle={{gap: 12, paddingHorizontal: 12}}>
+          <View>
+            <Text grey30 center text90L>
+              Persetujuan KUU
+            </Text>
+            <Status status={data?.data?.app_kuu} />
+          </View>
+          <View>
+            <Text grey30 center>
+              Persetujuan PIC
+            </Text>
+            <Status status={data?.data?.app_pic} />
+          </View>
+          <View>
+            <Text grey30 center>
+              Persetujuan PM
+            </Text>
+            <Status status={data?.data?.app_pm} />
+          </View>
+        </ScrollView>
       </View>
 
       <TabView
