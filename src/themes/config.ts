@@ -31,7 +31,10 @@ export const configureDesignSystem = (): void => {
   });
   ThemeManager.setComponentTheme('TextField', {
     fieldStyle: {
-      borderBottomWidth: 1,
+      paddingHorizontal: 8,
+      paddingVertical: 8,
+      borderWidth: 1,
+      borderRadius: 6,
       borderColor: Colors.grey40,
     },
   });

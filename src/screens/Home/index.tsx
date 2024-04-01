@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   bgIcon: {
     position: 'absolute',
-    bottom: 0,
+    top: 8,
     right: 0,
     zIndex: -1,
   },

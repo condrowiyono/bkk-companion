@@ -34,7 +34,7 @@ const Login = () => {
       </View>
       <TextField
         placeholder="Username / NIK"
-        floatingPlaceholder
+        label="Username / NIK"
         enableErrors
         validateOnBlur
         validate={['required']}
@@ -46,8 +46,8 @@ const Login = () => {
       />
       <TextField
         placeholder="Password"
+        label="Password"
         secureTextEntry
-        floatingPlaceholder
         enableErrors
         validateOnBlur
         validate={['required']}
