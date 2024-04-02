@@ -17,9 +17,14 @@ const Item = (props: Props) => {
   return (
     <TouchableCard onPress={() => props.onPress?.(item)}>
       <View padding-12>
-        <Text text80 numberOfLines={1} $textNeutral>
-          {item.PONumber}
-        </Text>
+        <View spread row>
+          <Text text80 numberOfLines={1} $textNeutral>
+            {item.PONumber}
+          </Text>
+          <Text text80 numberOfLines={1} $textNeutral>
+            {item.KodeProd}
+          </Text>
+        </View>
         <Text numberOfLines={3} text70M>
           {item.VendorNo} - {item.VendorName}
         </Text>

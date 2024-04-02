@@ -12,7 +12,6 @@ import TouchableCard from '../../components/TouchableCard';
 import {useAuth} from '../../contexts/auth';
 import {formatDate} from '../../utils/date';
 import {PurchaseOrder} from '../../interfaces/purchaseOrder';
-import Empty from '../../components/Empty';
 
 const Home = () => {
   const {userID} = useAuth();
@@ -88,7 +87,6 @@ const Home = () => {
           scrollEnabled={false}
           data={projects?.data}
           keyExtractor={item => item.kode_prod}
-          ListEmptyComponent={<Empty />}
           renderItem={({item}) => (
             <ListItem
               paddingH-16
@@ -115,7 +113,7 @@ const Home = () => {
           keyExtractor={item => item.PONumber2}
           renderItem={({item}) => (
             <ListItem
-              paddingH-12
+              paddingH-16
               onPress={() =>
                 navigation.navigate('PurchaseOrderDetail', {
                   taskId: item.PONumber2,

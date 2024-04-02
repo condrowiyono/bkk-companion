@@ -62,6 +62,11 @@ const PurchaseOrderDetail = () => {
     queryFn: () => fetcher<PurchaseOrder>({url: `/protected/po/${taskId}`}),
   });
 
+  const disableAction = useMemo(
+    () => Number(data?.data?.status) === ApprovalStatus.APPROVED,
+    [data],
+  );
+
   const {mutate: updateStatus, isPending} = useMutation<
     UpdateStatusResponse,
     any,
@@ -118,9 +123,9 @@ const PurchaseOrderDetail = () => {
     <>
       <View backgroundColor={Colors.white}>
         <View gap-4 padding-12>
-          <View gap-8 marginB-8>
+          <View gap-4>
             <Text numberOfLines={3} text80M selectable>
-              {data?.data?.VendorName} - {data?.data?.VendorNo}
+              {data?.data?.VendorNo} - {data?.data?.VendorName}
             </Text>
             <Text text60BL selectable>
               {data?.data?.PONumber}
@@ -132,12 +137,6 @@ const PurchaseOrderDetail = () => {
           horizontal
           contentContainerStyle={{gap: 12, paddingHorizontal: 12}}>
           <View>
-            <Text grey30 center text90L>
-              Persetujuan KUU
-            </Text>
-            <Status status={data?.data?.app_kuu} />
-          </View>
-          <View>
             <Text grey30 center>
               Persetujuan PIC
             </Text>
@@ -148,6 +147,12 @@ const PurchaseOrderDetail = () => {
               Persetujuan PM
             </Text>
             <Status status={data?.data?.app_pm} />
+          </View>
+          <View>
+            <Text grey30 center>
+              Persetujuan Ka Div
+            </Text>
+            <Status status={data?.data?.app_kuu} />
           </View>
         </ScrollView>
       </View>
@@ -164,14 +169,17 @@ const PurchaseOrderDetail = () => {
       <View height={120} />
       <View
         flex
+        spread
         backgroundColor={Colors.white}
         style={styles.actions}
         padding-12>
-        <View row spread centerV marginB-24>
-          <Text text80>Nilai</Text>
-          <Text text70R style={{fontWeight: 'bold'}}>
-            {formatCurrency(data?.data?.nilai)}
-          </Text>
+        <View>
+          <View row spread centerV>
+            <Text text80>Total PO</Text>
+            <Text text70 style={{fontWeight: 'bold'}}>
+              {formatCurrency(data?.data?.Total)}
+            </Text>
+          </View>
         </View>
 
         <View row spread gap-8 centerV>
@@ -194,7 +202,7 @@ const PurchaseOrderDetail = () => {
             flex
             disabledBackgroundColor={Colors.grey40}
             backgroundColor={Colors.red30}
-            disabled={isPending}
+            disabled={isPending || disableAction}
             onPress={() => {
               setDialog({
                 isVisible: true,
@@ -213,7 +221,7 @@ const PurchaseOrderDetail = () => {
             flex
             disabledBackgroundColor={Colors.grey40}
             backgroundColor={Colors.green30}
-            disabled={isPending}
+            disabled={isPending || disableAction}
             onPress={() => {
               setDialog({
                 isVisible: true,

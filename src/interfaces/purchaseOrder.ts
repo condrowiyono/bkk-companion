@@ -5,6 +5,7 @@ export enum ApprovalStatus {
 }
 
 export type PurchaseOrder = {
+  status: string;
   statuss: number;
   pesan: string;
   divisi: string;
@@ -27,6 +28,9 @@ export type PurchaseOrder = {
   app_kuu: string;
   imei: null | string;
   items: Item[];
+  PPN: number;
+  PPNNIlai: number;
+  Total: number;
 };
 
 export type Item = {

@@ -33,18 +33,18 @@ const Approval = (props: DetailProps) => {
         data={[
           {
             index: 0,
-            label: 'Persetujuan KUU',
-            value: formatApproval(data.app_kuu),
-          },
-          {
-            index: 1,
             label: 'Persetujuan PIC',
             value: formatApproval(data.app_pic),
           },
           {
-            index: 2,
+            index: 1,
             label: 'Persetujuan PM',
             value: formatApproval(data.app_pm),
+          },
+          {
+            index: 2,
+            label: 'Persetujuan Ka Div',
+            value: formatApproval(data.app_kuu),
           },
         ]}
       />

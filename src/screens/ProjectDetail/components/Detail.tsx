@@ -37,7 +37,7 @@ const Detail = (props: DetailProps) => {
           },
           {
             index: 3,
-            label: 'Kustomer',
+            label: 'Customer',
             value: data.customer,
           },
           {

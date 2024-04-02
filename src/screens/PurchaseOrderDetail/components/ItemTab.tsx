@@ -38,14 +38,14 @@ const ItemTab = (props: DetailProps) => {
           }}>
           <ListItem.Part middle>
             <View marginR-8>
+              <Text text80M numberOfLines={2} marginB-2>
+                {`${item.item_code} - ${item.item_name}`}
+              </Text>
               <View row>
                 <Text text90M>{item.QTY}</Text>
                 <Text text90M>{' x '}</Text>
                 <Text text90M>{formatCurrency(item.price)}</Text>
               </View>
-              <Text text80M numberOfLines={2}>
-                {`${item.item_code} - ${item.item_name}`}
-              </Text>
             </View>
           </ListItem.Part>
           <ListItem.Part right containerStyle={{width: 100}}>

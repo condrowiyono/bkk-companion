@@ -60,6 +60,11 @@ const ProjectDetail = () => {
     queryFn: () => fetcher<Project>({url: `/protected/projects/${taskId}`}),
   });
 
+  const disableAction = useMemo(
+    () => Number(data?.data?.status) === ApprovalStatus.APPROVED,
+    [data],
+  );
+
   const {mutate: updateStatus, isPending} = useMutation<
     UpdateStatusResponse,
     any,
@@ -116,7 +121,7 @@ const ProjectDetail = () => {
     <>
       <View backgroundColor={Colors.white}>
         <View gap-4 padding-12>
-          <View gap-8 marginB-8>
+          <View gap-8>
             <Text grey30 selectable>
               {data?.data?.kode_prod}
             </Text>
@@ -129,7 +134,7 @@ const ProjectDetail = () => {
           horizontal
           contentContainerStyle={{gap: 12, paddingHorizontal: 12}}>
           <View>
-            <Text grey30 center text90L>
+            <Text grey30 center>
               Kepala Divisi PMO
             </Text>
             <Status status={data?.data?.approval_kuu} />
@@ -190,7 +195,7 @@ const ProjectDetail = () => {
             flex
             disabledBackgroundColor={Colors.grey40}
             backgroundColor={Colors.red30}
-            disabled={isPending}
+            disabled={isPending || disableAction}
             onPress={() => {
               setDialog({
                 isVisible: true,
@@ -209,7 +214,7 @@ const ProjectDetail = () => {
             flex
             disabledBackgroundColor={Colors.grey40}
             backgroundColor={Colors.green30}
-            disabled={isPending}
+            disabled={isPending || disableAction}
             onPress={() => {
               setDialog({
                 isVisible: true,
@@ -225,6 +230,7 @@ const ProjectDetail = () => {
           </Button>
         </View>
       </View>
+
       <Dialog
         visible={dialog.isVisible}
         onDismiss={() => setDialog({isVisible: false})}

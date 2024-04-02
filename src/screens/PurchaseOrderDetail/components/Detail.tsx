@@ -28,7 +28,7 @@ const Detail = (props: DetailProps) => {
           },
           {
             index: 1,
-            label: 'Jabaran',
+            label: 'Jabatan',
             value: data.jabatan,
           },
           {
@@ -53,7 +53,7 @@ const Detail = (props: DetailProps) => {
           },
           {
             index: 6,
-            label: 'Delivery Date',
+            label: 'Tanggal Pengiriman',
             value: data.Delivery,
           },
           {
@@ -83,18 +83,33 @@ const Detail = (props: DetailProps) => {
           },
           {
             index: 12,
-            label: 'Nilai Budget',
-            value: data.KodeBUdget,
+            label: 'IMEI',
+            value: data.imei ?? '-',
           },
           {
             index: 13,
-            label: 'Nilai Budget (Rp)',
-            value: formatCurrency(data.nilai),
+            label: 'Kode Budget',
+            value: data.KodeBUdget,
           },
           {
             index: 14,
-            label: 'IMEI',
-            value: data.imei ?? '-',
+            label: 'Nilai PO',
+            value: formatCurrency(data.nilai),
+          },
+          {
+            index: 15,
+            label: 'PPN',
+            value: `${data.PPN} %`,
+          },
+          {
+            index: 16,
+            label: 'Nilai PPN',
+            value: formatCurrency(data.PPNNIlai),
+          },
+          {
+            index: 17,
+            label: 'Total',
+            value: formatCurrency(data.Total),
           },
         ]}
       />
