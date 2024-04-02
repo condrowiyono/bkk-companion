@@ -20,6 +20,7 @@ export type Project = {
   app_kuu_dt: string | null;
   app_dirop_dt: string | null;
   app_dirkeu_dt: string | null;
+  status: string;
 };
 
 export type UpdateStatus = {

@@ -1,9 +1,11 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TabView, SceneMap} from 'react-native-tab-view';
 import Projects from '../Projects';
 import TabBarComponent from './components/TabBarComponent';
 import PurchaseOrderSreen from '../PurchaseOrder';
 import UpcomingFeature from '../../components/UpcomingFeature';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import {StackList} from '../../navigations/types';
 
 const renderScene = SceneMap({
   first: Projects,
@@ -11,17 +13,19 @@ const renderScene = SceneMap({
   third: UpcomingFeature,
 });
 
+const routes = [
+  {key: 'first', title: 'Proyek'},
+  {key: 'second', title: 'PO'},
+  {key: 'third', title: 'Cuti'},
+];
+
 const NeedAction = () => {
+  const {params} = useRoute<RouteProp<StackList, 'TabNavigator'>>();
   const [index, setIndex] = useState(0);
 
-  const routes = useMemo(
-    () => [
-      {key: 'first', title: 'Budget Proyek'},
-      {key: 'second', title: 'PO'},
-      {key: 'third', title: 'Cuti'},
-    ],
-    [],
-  );
+  useEffect(() => {
+    setIndex(params?.tabId || 0);
+  }, [params?.tabId]);
 
   return (
     <TabView

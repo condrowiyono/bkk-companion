@@ -5,7 +5,10 @@ import type {CompositeNavigationProp} from '@react-navigation/native';
 export type StackList = {
   Login: undefined;
   Onboarding: undefined;
-  TabNavigator: {screen?: string; screenOption?: {tab: number}} | undefined;
+  TabNavigator: {screen?: string; tabId?: number} | undefined;
+  NeedAction: undefined;
+  History: undefined;
+  Account: undefined;
   ProjectDetail: {taskId: string};
   PurchaseOrderDetail: {taskId: string};
   SplashScreen: undefined;

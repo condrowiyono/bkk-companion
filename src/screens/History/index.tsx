@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import {TabView, SceneMap} from 'react-native-tab-view';
 import TabBarComponent from './components/TabBarComponent';
 import ProjectHistory from '../ProjectHistory';
@@ -11,17 +11,14 @@ const renderScene = SceneMap({
   third: UpcomingFeature,
 });
 
+const routes = [
+  {key: 'first', title: 'Budget Proyek'},
+  {key: 'second', title: 'PO'},
+  {key: 'third', title: 'Cuti'},
+];
+
 const History = () => {
   const [index, setIndex] = useState(0);
-
-  const routes = useMemo(
-    () => [
-      {key: 'first', title: 'Budget Proyek'},
-      {key: 'second', title: 'PO'},
-      {key: 'third', title: 'Cuti'},
-    ],
-    [],
-  );
 
   return (
     <TabView

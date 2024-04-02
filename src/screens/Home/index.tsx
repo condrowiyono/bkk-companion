@@ -6,19 +6,20 @@ import {FlatList, ScrollView, StyleSheet} from 'react-native';
 import {Colors, ListItem, Text, View} from 'react-native-ui-lib';
 
 import {Project} from '../../interfaces/project';
-import {NavigationProp} from '../../navigations/types';
+import {NavigationProp, StackList} from '../../navigations/types';
 import {fetcher} from '../../utils/fetcher';
 import TouchableCard from '../../components/TouchableCard';
 import {useAuth} from '../../contexts/auth';
 import {formatDate} from '../../utils/date';
 import {PurchaseOrder} from '../../interfaces/purchaseOrder';
+import Empty from '../../components/Empty';
 
 const Home = () => {
   const {userID} = useAuth();
   const navigation = useNavigation<NavigationProp>();
 
-  const handleNavigate = (screen: string) => {
-    navigation.navigate('TabNavigator', {screen});
+  const handleNavigate = (screen: keyof StackList, tabId: number) => {
+    navigation.jumpTo(screen, {tabId});
   };
 
   const {data: projects} = useQuery({
@@ -43,7 +44,7 @@ const Home = () => {
         </Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <TouchableCard
-            onPress={() => handleNavigate('NeedAction')}
+            onPress={() => handleNavigate('NeedAction', 0)}
             style={styles.card}>
             <View padding-12>
               <Text text60M>{'Budget'}</Text>
@@ -60,7 +61,7 @@ const Home = () => {
             </View>
           </TouchableCard>
           <TouchableCard
-            onPress={() => handleNavigate('NeedAction')}
+            onPress={() => handleNavigate('NeedAction', 1)}
             style={styles.card}>
             <View padding-12>
               <Text text60M>{'Purchase Order'}</Text>
@@ -87,6 +88,7 @@ const Home = () => {
           scrollEnabled={false}
           data={projects?.data}
           keyExtractor={item => item.kode_prod}
+          ListEmptyComponent={<Empty />}
           renderItem={({item}) => (
             <ListItem
               paddingH-16
