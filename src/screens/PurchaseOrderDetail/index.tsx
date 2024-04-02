@@ -198,7 +198,7 @@ const PurchaseOrderDetail = () => {
             onPress={() => {
               setDialog({
                 isVisible: true,
-                data: {approvals: ApprovalStatus.APPROVED},
+                data: {approvals: ApprovalStatus.REJECTED},
               });
             }}>
             <View flex row center>
