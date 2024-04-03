@@ -13,15 +13,20 @@ import Profile from '../screens/Profile';
 import PurchaseOrderDetail from '../screens/PurchaseOrderDetail';
 import NeedActionSearch from '../screens/NeedActionSearch';
 import HistorySearch from '../screens/HistorySearch';
+import NotificationScreen from '../screens/Notification';
+
+import SearchIcon from './components/SearchIcon';
+import NotificationIcon from './components/NotificationIcon';
 
 import {StackList} from './types';
 import TabNavigator from './tab';
-import SearchIcon from './components/SearchIcon';
 
 const Stack = createNativeStackNavigator<StackList>();
 
-const renderSearch = (routeName: string, props: HeaderButtonProps) => {
+const renderRightIcon = (routeName: string, props: HeaderButtonProps) => {
   switch (routeName) {
+    case 'Home':
+      return <NotificationIcon {...props} />;
     case 'History':
       return <SearchIcon screen="HistorySearch" {...props} />;
     case 'NeedAction':
@@ -69,7 +74,7 @@ const StackNavigator = () => {
                 getFocusedRouteNameFromRoute(route) ?? 'Home',
               ),
               headerRight: props =>
-                renderSearch(
+                renderRightIcon(
                   getFocusedRouteNameFromRoute(route) ?? 'Home',
                   props,
                 ),
@@ -94,6 +99,11 @@ const StackNavigator = () => {
             name="HistorySearch"
             component={HistorySearch}
             options={{title: 'Pencarian', headerBackTitleVisible: false}}
+          />
+          <Stack.Screen
+            name="Notification"
+            component={NotificationScreen}
+            options={{title: 'Pemberitahuan', headerBackTitleVisible: false}}
           />
           <Stack.Screen
             name="Profile"

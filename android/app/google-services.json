@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "642629335926",
+    "project_id": "bukaka-app",
+    "storage_bucket": "bukaka-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642629335926:android:1818799f129cf843cd5857",
+        "android_client_info": {
+          "package_name": "com.bukaka.companion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtZ7eWmV2ATCKYC4BWv9fHTTM5tXtY6bI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,6 +6,7 @@ import {Dimensions} from 'react-native';
 
 function Onboarding() {
   const navigation = useNavigation<NavigationProp>();
+
   return (
     <View
       style={{
