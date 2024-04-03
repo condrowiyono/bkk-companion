@@ -1,3 +1,5 @@
+import {StackList} from '../navigations/types';
+
 export type Notification = {
   id: number;
   topic: string | null;
@@ -5,6 +7,8 @@ export type Notification = {
   fcm_token: string;
   title: string;
   body: string;
+  screen: keyof StackList;
+  task_id: string;
   createdAt: string;
   updatedAt: string;
 };

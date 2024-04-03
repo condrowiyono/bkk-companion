@@ -9,9 +9,12 @@ import Empty from '../../components/Empty';
 import ListHeader from '../../components/ListHeader';
 import ListFooter from '../../components/ListFooter';
 import {formatDate} from '../../utils/date';
+import {useNavigation} from '@react-navigation/native';
+import {NavigationProp} from '../../navigations/types';
 
 const NotificationScreen = () => {
   const {userID} = useAuth();
+  const navigation = useNavigation<NavigationProp>();
 
   const {
     data,
@@ -25,6 +28,13 @@ const NotificationScreen = () => {
     queryFn: () => fetcher<Notification[]>({url: '/protected/notifications'}),
   });
 
+  const handlePressLink = (item: Notification) => {
+    if (['ProjectDetail', 'PurchaseOrderDetail'].includes(item.screen)) {
+      const screen = item.screen as 'ProjectDetail' | 'PurchaseOrderDetail';
+      navigation.navigate(screen, {taskId: item.task_id});
+    }
+  };
+
   return (
     <FlatList
       keyExtractor={item => `${item.id}`}
@@ -36,7 +46,9 @@ const NotificationScreen = () => {
           onRefresh={refetch}
         />
       }
-      renderItem={({item, index}) => <Item index={index} item={item} />}
+      renderItem={({item, index}) => (
+        <Item onPress={handlePressLink} index={index} item={item} />
+      )}
       ListHeaderComponent={<ListHeader show={isFetching} />}
       ListFooterComponent={
         <ListFooter

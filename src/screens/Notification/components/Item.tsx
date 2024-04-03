@@ -20,10 +20,10 @@ const Item = (props: Props) => {
         <Text numberOfLines={3} text70M>
           {item.title}
         </Text>
-        <Text text90H numberOfLines={3} $textNeutral>
+        <Text text80 numberOfLines={3} $textNeutral>
           {item.body}
         </Text>
-        <Text text90H numberOfLines={1} $textNeutral>
+        <Text text90L numberOfLines={1} $textNeutral>
           {formatDate(item.createdAt, 'DD MMM YYYY HH:mm')}
         </Text>
       </View>

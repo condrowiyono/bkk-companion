@@ -14,7 +14,7 @@ const renderScene = SceneMap({
 });
 
 const routes = [
-  {key: 'first', title: 'Proyek'},
+  {key: 'first', title: 'Budget Proyek'},
   {key: 'second', title: 'PO'},
   {key: 'third', title: 'Cuti'},
 ];
