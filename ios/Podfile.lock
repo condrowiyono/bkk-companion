@@ -11,12 +11,12 @@ PODS:
     - React-Core (= 0.72.10)
     - React-jsi (= 0.72.10)
     - ReactCommon/turbomodule/core (= 0.72.10)
-  - Firebase/CoreOnly (10.23.0):
-    - FirebaseCore (= 10.23.0)
-  - Firebase/Messaging (10.23.0):
+  - Firebase/CoreOnly (10.23.1):
+    - FirebaseCore (= 10.23.1)
+  - Firebase/Messaging (10.23.1):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 10.23.0)
-  - FirebaseCore (10.23.0):
+  - FirebaseCore (10.23.1):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.12)
     - GoogleUtilities/Logger (~> 7.12)
@@ -511,12 +511,12 @@ PODS:
     - React-Core
   - RNDateTimePicker (7.6.2):
     - React-Core
-  - RNFBApp (19.1.1):
-    - Firebase/CoreOnly (= 10.23.0)
+  - RNFBApp (19.1.2):
+    - Firebase/CoreOnly (= 10.23.1)
     - React-Core
-  - RNFBMessaging (19.1.1):
-    - Firebase/Messaging (= 10.23.0)
-    - FirebaseCoreExtension (= 10.23.0)
+  - RNFBMessaging (19.1.2):
+    - Firebase/Messaging (= 10.23.1)
+    - FirebaseCoreExtension
     - React-Core
     - RNFBApp
   - RNGestureHandler (2.15.0):
@@ -731,8 +731,8 @@ SPEC CHECKSUMS:
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: f91d538f197fa71a7d5b77ec2069d49550c0eb96
   FBReactNativeSpec: b13d1c23d6ed82d6b66aad7a253edf8ba76c4a4c
-  Firebase: 333ec7c6b12fa09c77b5162cda6b862102211d50
-  FirebaseCore: 63efb128decaebb04c4033ed4e05fb0bb1cccef1
+  Firebase: cf09623f98ae25a3ad484e23c7e0e5f464152d80
+  FirebaseCore: c43f9f0437b50a965e930cac4ad243200d12a984
   FirebaseCoreExtension: cb88851781a24e031d1b58e0bd01eb1f46b044b5
   FirebaseCoreInternal: 6a292e6f0bece1243a737e81556e56e5e19282e3
   FirebaseInstallations: 42d6ead4605d6eafb3b6683674e80e18eb6f2c35
@@ -787,8 +787,8 @@ SPEC CHECKSUMS:
   RNCClipboard: 60fed4b71560d7bfe40e9d35dea9762b024da86d
   RNCPicker: b18aaf30df596e9b1738e7c1f9ee55402a229dca
   RNDateTimePicker: fc2e4f2795877d45e84d85659bebe627eba5c931
-  RNFBApp: 3fd1f8d5b50cfaf718255e1faef207827c561d47
-  RNFBMessaging: e30e2b3af7de1283bd5c6525dfe17b650672fa0d
+  RNFBApp: 5cbbb49393dc840f46b227ae483d11d502ed36a8
+  RNFBMessaging: f5ed5b4ef1b17f946b785cb7fa0d8d555a5e12b2
   RNGestureHandler: 6a0bca5c5b2fb62211e9a75d5f4ed877817c4412
   RNReanimated: 0f4742827f6364455d957e5cc5cf4a18f221e845
   RNScreens: 1c2444658fbb696a094272d946708167b1f63409

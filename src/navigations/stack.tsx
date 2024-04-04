@@ -20,6 +20,7 @@ import NotificationIcon from './components/NotificationIcon';
 
 import {StackList} from './types';
 import TabNavigator from './tab';
+import About from '../screens/About';
 
 const Stack = createNativeStackNavigator<StackList>();
 
@@ -121,6 +122,11 @@ const StackNavigator = () => {
             name="Onboarding"
             component={Onboarding}
             options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="About"
+            component={About}
+            options={{headerTitle: 'Tentang Bukaka'}}
           />
           <Stack.Screen
             name="Login"

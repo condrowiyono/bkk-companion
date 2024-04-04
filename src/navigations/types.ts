@@ -16,6 +16,7 @@ export type StackList = {
   HistorySearch: undefined;
   Profile: undefined;
   Notification: undefined;
+  About: undefined;
 };
 
 export type StackNavScreen = Omit<StackList, 'TabNavigator'>;
