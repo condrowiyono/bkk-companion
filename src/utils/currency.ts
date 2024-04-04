@@ -1,6 +1,9 @@
 const sign = 'Rp';
 
-export const formatCurrency = (value: number | string | undefined | null) => {
+export const formatCurrency = (
+  value: number | string | undefined | null,
+  currency = sign,
+) => {
   if (value === undefined || value === null || value === '') {
     return '';
   }
@@ -11,5 +14,5 @@ export const formatCurrency = (value: number | string | undefined | null) => {
     return '';
   }
 
-  return `${sign} ${parsed.toLocaleString('id-ID')}`;
+  return `${currency} ${parsed.toLocaleString('id-ID')}`;
 };

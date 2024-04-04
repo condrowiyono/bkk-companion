@@ -102,6 +102,8 @@ const PurchaseOrderDetail = () => {
     [data],
   );
 
+  console.log(data);
+
   const handleMenuAction = ({nativeEvent}: NativeActionEvent) => {
     if (nativeEvent.event === 'reset') {
       setDialog({
@@ -177,7 +179,7 @@ const PurchaseOrderDetail = () => {
           <View row spread centerV>
             <Text text80>Total PO</Text>
             <Text text70 style={{fontWeight: 'bold'}}>
-              {formatCurrency(data?.data?.Total)}
+              {formatCurrency(data?.data?.Total, data?.data?.mataUang)}
             </Text>
           </View>
         </View>

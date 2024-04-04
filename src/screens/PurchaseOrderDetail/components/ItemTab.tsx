@@ -49,7 +49,7 @@ const ItemTab = (props: DetailProps) => {
             </View>
           </ListItem.Part>
           <ListItem.Part right containerStyle={{width: 100}}>
-            <Text>{formatCurrency(item.subTotal)}</Text>
+            <Text>{formatCurrency(item.subTotal, '')}</Text>
           </ListItem.Part>
         </ListItem>
       )}

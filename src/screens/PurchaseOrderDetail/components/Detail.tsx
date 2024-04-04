@@ -94,7 +94,7 @@ const Detail = (props: DetailProps) => {
           {
             index: 14,
             label: 'Nilai PO',
-            value: formatCurrency(data.nilai),
+            value: formatCurrency(data.nilai, data.mataUang),
           },
           {
             index: 15,
@@ -104,12 +104,12 @@ const Detail = (props: DetailProps) => {
           {
             index: 16,
             label: 'Nilai PPN',
-            value: formatCurrency(data.PPNNIlai),
+            value: formatCurrency(data.PPNNIlai, data.mataUang),
           },
           {
             index: 17,
             label: 'Total',
-            value: formatCurrency(data.Total),
+            value: formatCurrency(data.Total, data.mataUang),
           },
         ]}
       />

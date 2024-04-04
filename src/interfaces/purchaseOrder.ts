@@ -31,6 +31,7 @@ export type PurchaseOrder = {
   PPN: number;
   PPNNIlai: number;
   Total: number;
+  mataUang: string;
 };
 
 export type Item = {
