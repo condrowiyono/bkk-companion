@@ -1,7 +1,7 @@
 import axios, {AxiosError, AxiosRequestConfig} from 'axios';
 import {getItem} from './session';
 
-const BASE_URL = 'https://bkk-api.orbitallabs.net';
+const BASE_URL = 'https://bkk-api.cocoteknologi.com';
 
 export interface Response<T = any> {
   data?: T;

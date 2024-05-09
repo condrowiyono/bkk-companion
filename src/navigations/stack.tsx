@@ -89,7 +89,7 @@ const StackNavigator = () => {
           <Stack.Screen
             name="PurchaseOrderDetail"
             component={PurchaseOrderDetail}
-            options={{title: 'Rincian PO', headerBackTitleVisible: false}}
+            options={{title: 'Rincian DKM/PO', headerBackTitleVisible: false}}
           />
           <Stack.Screen
             name="NeedActionSearch"
