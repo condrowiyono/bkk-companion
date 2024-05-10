@@ -119,6 +119,10 @@ const PurchaseOrderDetail = () => {
     return <Error />;
   }
 
+  if (!data?.data?.PONumber2) {
+    return <Error />;
+  }
+
   return (
     <>
       <View backgroundColor={Colors.white}>
